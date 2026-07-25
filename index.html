@@ -1,11 +1,16 @@
 <!--
-versión: 07
+versión: 08
 fecha: 2026-07-25
 autor: Noel
-archivo: guia_val_dazun_sidebar_v07.html — versión nueva, archivo nuevo (no se
-sobreescribe v06). Las versiones v1-v3 anteriores no se guardaron como archivos
+archivo: guia_val_dazun_sidebar_v08.html — versión nueva, archivo nuevo (no se
+sobreescribe v07). Las versiones v1-v3 anteriores no se guardaron como archivos
 separados (solo como commits de git sobre guia_val_dazun_sidebar.html, que queda tal
 cual, sin corregir retroactivamente) — petición explícita de Antonio.
+cambios v08: cabecera móvil (antes color plano --ardoise, vacía salvo título y botón)
+sustituida por foto panorámica real del Val d'Azun desde el Col de Soulor, con
+degradado oscuro encima para mantener el texto legible. Foto verificada en Wikimedia
+Commons (Guillaume Baviere, CC BY-SA 2.0 — ver detalle en contexto_val_dazun.md), no
+inventada. Sin cambios en escritorio (pedido explícitamente solo para móvil).
 cambios v07 (FIX móvil): el menú lateral no se veía / no funcionaba en móvil.
 Causa raíz: el modo móvil "aplanaba" cada grupo desplegable (Días, Sitios) con
 `display:contents` anidado dos veces (el grupo y su submenú), un patrón con fallos
@@ -302,10 +307,14 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
   }
   .sidebar-head{
     display:flex;align-items:center;justify-content:space-between;gap:14px;
-    padding:14px 18px;border-bottom:none;
+    padding:22px 18px;border-bottom:none;
+    background:
+      linear-gradient(rgba(29,43,51,.45),rgba(29,43,51,.78)),
+      url('https://upload.wikimedia.org/wikipedia/commons/8/82/Val_d%27Azun_depuis_les_hauteurs_nord_du_col_de_Soulor.jpg');
+    background-size:cover;background-position:center 60%;
   }
   .sidebar-head .eyebrow,.sidebar-head .brand-dates{display:none}
-  .sidebar-head .brand{font-size:21px;line-height:1;white-space:nowrap}
+  .sidebar-head .brand{font-size:22px;line-height:1;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.4)}
   .menu-toggle{
     display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
     width:40px;height:40px;background:none;border:1px solid #46585F;border-radius:4px;
