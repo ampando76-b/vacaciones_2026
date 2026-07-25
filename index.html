@@ -1,0 +1,1011 @@
+<!--
+versión: 06
+fecha: 2026-07-25
+autor: Noel
+archivo: guia_val_dazun_sidebar_v06.html — versión nueva, archivo nuevo (no se
+sobreescribe v05). Las versiones v1-v3 anteriores no se guardaron como archivos
+separados (solo como commits de git sobre guia_val_dazun_sidebar.html, que queda tal
+cual, sin corregir retroactivamente) — petición explícita de Antonio.
+cambios v06: fotos añadidas a 3 de las 4 fichas que no tenían (Lac d'Estaing, Lac de
+Suyen, Base de Loisirs Arrens-Marsous), buscadas y verificadas en Wikimedia Commons
+(licencia CC BY-SA, no inventadas — ver detalle y autoría en contexto_val_dazun.md).
+Mercado de Argelès-Gazost sigue sin foto: no existe ninguna foto verificable del
+mercado/plaza en Wikimedia Commons; pendiente de que Antonio aporte una (ver GPS de la
+propia ficha) o de una foto de Google Places.
+cambios v05: "Sitios" deja de ser una página con scroll largo — pasa a ser, igual que
+"Días", un desplegable en el menú lateral con las 14 fichas como submenú, cada una su
+propia pantalla independiente. Los botones "Ver ficha →" de cada día abren ahora
+directamente la pantalla del sitio correspondiente (antes saltaban con ancla dentro de
+la página única de Sitios). "General" incorpora el resumen de los 14 sitios (mismo
+patrón que el resumen de días), con enlace directo a cada pantalla.
+cambios v04: página "Dónde comer" eliminada como sección independiente — las
+recomendaciones de restaurantes (valoración, horario, enlace de reseñas) se integran
+directamente en la ficha del Sitio más cercano (Pont d'Espagne: l'Abri du Benques +
+Cauterets centro; Gavarnie: La Kantine; Couraduque: Le Couraduque; Mercado de
+Argelès-Gazost: La Table d'Ayzi + Au Fond Du Gosier), petición explícita de Antonio.
+Tarjeta redundante de Carrefour Market en el día 26 eliminada (ya cubierta en la ficha
+del Camping). CSS de `.eat`/`.eat-rank` retirado por no uso.
+cambios v3: botón "↑ Arriba" en cada ficha de Sitios (contenedor de contenido con scroll
+propio para que funcione); enlace a Wikipedia verificado en cada una de las 14 fichas
+de Sitios (búsqueda real, no inventado — ver detalle en contexto_val_dazun.md); página
+"Dónde comer" reordenada como top por valoración de Google (1 a 7, empates compartidos)
+con el enlace de Maps re-etiquetado "Ver reseñas y ubicación"; Carrefour Market separado
+del ranking, en su propio bloque "Aparte — la compra".
+cambios v2: "Días" pasa a submenú desplegable con una página independiente por día;
+cada día muestra el/los sitio(s) de ese día con enlace directo a su ficha en Sitios
+(anclas id="place-*") y a GPS; General incorpora el resumen de todos los días
+(sustituye a la antigua página única "Días", ahora repartida en 8 páginas).
+cambios v1: primera versión con navegación de menú lateral + páginas (sustituye el
+scroll/anclas de val-dazun-guia.html, conservado sin tocar como referencia/histórico)
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Val d'Azun · 26 jul – 2 ago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pierre:#E6E8DF;
+  --pierre-2:#F1F2EC;
+  --ardoise:#1D2B33;
+  --ardoise-2:#33454E;
+  --balise:#F2C14E;
+  --gave:#2F7D7B;
+  --estive:#6E8B4E;
+  --mute:#7E8781;
+  --line:#C8CCC0;
+  --sidebar-w:236px;
+}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{
+  margin:0;background:var(--pierre);color:var(--ardoise);
+  font-family:"Public Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.55;overflow-x:hidden;max-width:100vw;
+}
+h1,h2,h3{text-wrap:balance}
+
+/* ---------- shell / sidebar ---------- */
+.shell{display:flex;min-height:100vh}
+.sidebar{
+  flex:0 0 var(--sidebar-w);width:var(--sidebar-w);
+  background:var(--ardoise);color:var(--pierre-2);
+  position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+  border-right:5px solid var(--balise);
+  scrollbar-width:none;
+}
+.sidebar::-webkit-scrollbar{display:none}
+.sidebar-head{padding:26px 22px 20px;border-bottom:1px solid #46585F}
+.eyebrow{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--balise);margin:0 0 8px;
+}
+.brand{
+  font-family:"Bricolage Grotesque",Impact,sans-serif;font-weight:800;
+  font-size:26px;line-height:.98;margin:0 0 10px;letter-spacing:-.01em;
+}
+.brand-dates{font-size:12.5px;color:#A9B6BB;line-height:1.5}
+.brand-dates b{color:var(--pierre-2);font-weight:600}
+.sidenav{display:flex;flex-direction:column;padding:10px 0}
+.sidenav-item{
+  display:block;width:100%;text-align:left;background:none;border:none;
+  color:#A9B6BB;font:inherit;
+  font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.05em;
+  text-transform:uppercase;cursor:pointer;
+  padding:12px 22px;border-left:3px solid transparent;
+}
+.sidenav-item:hover{color:var(--pierre-2);background:rgba(255,255,255,.03)}
+.sidenav-item.active{color:var(--balise);border-left-color:var(--balise);background:rgba(242,193,78,.09)}
+.sidenav-item:focus-visible{outline:2px solid var(--balise);outline-offset:-2px}
+.sidenav-parent{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sidenav-parent .chev{font-size:10px;color:#7E8F96;transition:transform .15s ease}
+.sidenav-parent.open .chev{transform:rotate(180deg)}
+.sidenav-sub{max-height:0;overflow:hidden;transition:max-height .18s ease}
+.sidenav-sub.open{max-height:340px}
+.sidenav-subitem{
+  display:block;width:100%;text-align:left;background:none;border:none;font:inherit;
+  color:#8FA0A6;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.03em;
+  cursor:pointer;padding:9px 22px 9px 34px;border-left:3px solid transparent;
+}
+.sidenav-subitem:hover{color:var(--pierre-2);background:rgba(255,255,255,.03)}
+.sidenav-subitem.active{color:var(--balise);border-left-color:var(--balise);background:rgba(242,193,78,.09)}
+.sidenav-subitem:focus-visible{outline:2px solid var(--balise);outline-offset:-2px}
+
+/* ---------- resumen de días (General) ---------- */
+.daylist{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:8px}
+.daylist-row{
+  display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:14px;
+  width:100%;text-align:left;background:none;border:none;font:inherit;cursor:pointer;
+  padding:12px 0;border-bottom:1px solid var(--line);color:var(--ardoise);
+}
+.daylist-row:hover .dl-name{color:var(--gave)}
+.daylist-row .dl-date{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.daylist-row .dl-name{font-size:14.5px;font-weight:600}
+.daylist-row .dl-t{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--gave);font-variant-numeric:tabular-nums}
+
+/* ---------- resumen de sitios (General) ---------- */
+.sitelist{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:8px}
+.sitelist-row{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  width:100%;text-align:left;background:none;border:none;font:inherit;cursor:pointer;
+  padding:12px 0;border-bottom:1px solid var(--line);color:var(--ardoise);
+}
+.sitelist-row:hover .sl-name{color:var(--gave)}
+.sitelist-row .sl-name{font-size:14.5px;font-weight:600}
+.sitelist-row .sl-stat{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* ---------- tarjeta de sitio compacta (dentro de cada día) ---------- */
+.site-card{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  background:var(--pierre-2);border:1px solid var(--line);border-radius:4px;
+  padding:13px 15px;margin:10px 0 0;
+}
+.site-card .sc-name{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:15.5px;display:block}
+.site-card .sc-meta{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gave);margin-top:2px;display:block}
+.site-card .sc-links{display:flex;align-items:center;gap:12px}
+.sc-more{
+  font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.03em;
+  color:var(--gave);text-decoration:none;border-bottom:1px solid var(--gave);white-space:nowrap;
+  background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;padding:0;
+}
+.sc-more:hover,.sc-more:focus-visible{color:var(--ardoise);border-color:var(--ardoise)}
+
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;padding:44px clamp(20px,4vw,56px) 90px;max-width:880px;height:100vh;overflow-y:auto;scroll-behavior:smooth}
+.view{display:none;animation:fade .18s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}.content,html{scroll-behavior:auto}}
+
+h2.page-title{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:30px;letter-spacing:-.01em;margin:0 0 6px;
+}
+.lede{color:var(--mute);font-size:14.5px;margin:0 0 26px;max-width:62ch}
+
+/* ---------- general (hero) ---------- */
+.datum{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 28px}
+.datum div{flex:1 1 30%;padding:14px 14px 14px 0;border-right:1px solid var(--line)}
+.datum div:last-child{border-right:none}
+.datum .m{font-family:"JetBrains Mono",monospace;font-size:16px;color:var(--gave);font-weight:700;display:block}
+.datum .n{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.shortcuts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.shortcut{
+  display:block;width:100%;text-align:left;background:var(--pierre-2);border:1px solid var(--line);
+  border-radius:4px;padding:14px 15px;cursor:pointer;font:inherit;color:var(--ardoise);
+}
+.shortcut:hover{border-color:var(--gave)}
+.shortcut .st{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--gave);display:block;margin-bottom:4px}
+.shortcut .sd{font-size:13px;color:#41525A}
+
+/* ---------- blade GPS ---------- */
+.blade{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--balise);color:var(--ardoise);
+  text-decoration:none;font-weight:700;font-size:13px;
+  letter-spacing:.05em;text-transform:uppercase;
+  padding:11px 30px 11px 15px;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%);
+  transition:transform .12s ease,background .12s ease;
+}
+.blade:hover,.blade:focus-visible{background:#FFD66B;transform:translateX(3px)}
+.blade.sm{font-size:11.5px;padding:8px 26px 8px 12px}
+a:focus-visible{outline:3px solid var(--gave);outline-offset:3px}
+
+/* ---------- meteo ---------- */
+.meteo{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.md{background:var(--pierre-2);border:1px solid var(--line);border-radius:3px;padding:12px 8px;text-align:center}
+.md.hot{border-color:#E2A63C;background:#FAF0D9}
+.md .d{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+.md .t{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;display:block;line-height:1.3;font-variant-numeric:tabular-nums}
+.md .r{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gave)}
+
+/* ---------- plan diario ---------- */
+.day{display:grid;grid-template-columns:82px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.day:last-child{border-bottom:1px solid var(--line)}
+.day .when{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;padding-top:3px;font-variant-numeric:tabular-nums}
+.day .when b{display:block;font-size:22px;color:var(--ardoise);line-height:1.1}
+.day h3{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;margin:0 0 4px;font-weight:700}
+.day p{margin:0;font-size:14.5px;color:#41525A}
+.day .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:var(--gave);color:#fff;margin:8px 6px 0 0}
+.day .tag.free{background:var(--estive)}
+.day .tag.warn{background:#C2701F}
+
+/* ---------- mochila ---------- */
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kit .box{background:var(--pierre-2);border:1px solid var(--line);border-radius:4px;padding:15px 16px}
+.kit h3{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gave);margin:0 0 9px}
+.kit ul{margin:0;padding-left:17px}
+.kit li{font-size:14px;margin-bottom:5px;color:#41525A}
+
+/* ---------- fichas de lugares ---------- */
+.place{background:var(--pierre-2);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:22px}
+.place img{display:block;width:100%;height:190px;object-fit:cover;background:var(--ardoise-2);border-bottom:1px solid var(--line)}
+.place .body{padding:16px 16px 18px}
+.place h3{font-family:"Bricolage Grotesque",sans-serif;font-size:21px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+.stats{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;font-family:"JetBrains Mono",monospace;font-size:11px}
+.stats span{background:var(--pierre);border:1px solid var(--line);padding:3px 8px;border-radius:2px;color:#41525A}
+.stats span.key{background:var(--ardoise);color:var(--balise);border-color:var(--ardoise)}
+.stats span.eur{background:var(--estive);color:#fff;border-color:var(--estive)}
+.place p{margin:0 0 14px;font-size:14.5px;color:#41525A}
+.info{border-top:1px dashed var(--line);margin:0 0 15px;padding-top:13px}
+.info .row{display:grid;grid-template-columns:92px 1fr;gap:11px;margin-bottom:9px}
+.info .row:last-child{margin-bottom:0}
+.info .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+.info .v{font-size:13.5px;color:#41525A}
+.pin{display:inline-flex;align-items:center;gap:2px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;color:var(--gave);text-decoration:none;border-bottom:1px solid var(--gave);white-space:nowrap;margin-left:3px}
+.pin:hover,.pin:focus-visible{color:var(--ardoise);border-color:var(--ardoise)}
+.pin::before{content:"📍";font-size:10px;margin-right:1px}
+.story{background:var(--pierre);border-left:3px solid var(--balise);border-radius:0 3px 3px 0;padding:11px 14px;margin:0 0 15px}
+.story .eyebrow2{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#B98A1E;margin:0 0 5px;display:block}
+.story p{margin:0;font-size:13.5px;color:#41525A}
+.wiki-link{
+  display:inline-flex;align-items:center;gap:4px;margin:0 0 14px;
+  font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.03em;
+  color:var(--gave);text-decoration:none;border-bottom:1px solid var(--gave);
+}
+.wiki-link:hover,.wiki-link:focus-visible{color:var(--ardoise);border-color:var(--ardoise)}
+.place-top{
+  display:inline-flex;align-items:center;gap:4px;float:right;background:none;border:none;font:inherit;
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--mute);cursor:pointer;padding:0;
+}
+.place-top:hover,.place-top:focus-visible{color:var(--gave)}
+
+/* ---------- presupuesto ---------- */
+.budget{border-top:1px solid var(--line)}
+.brow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.bname{font-size:14px;font-weight:600;flex:1 1 auto;min-width:0}
+.bdet{font-size:12.5px;color:var(--mute);flex:1 1 100%;order:3}
+.bamt{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bamt.free{color:var(--estive)}
+.brow.sum{border-bottom:none;border-top:2px solid var(--ardoise);margin-top:4px;padding-top:14px}
+.brow.sum .bname,.brow.sum .bamt{font-weight:800}
+
+/* ---------- correr ---------- */
+.run{border-left:3px solid var(--gave);padding:2px 0 2px 14px;margin-bottom:20px}
+.run h3{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;margin:0 0 3px}
+.run .sp{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--gave);letter-spacing:.04em}
+.run p{margin:5px 0 10px;font-size:14.5px;color:#41525A}
+
+/* ---------- notas ---------- */
+.notes-box{background:var(--ardoise);color:#C9D3D7;border-radius:4px;padding:22px 20px}
+.notes-box ul{margin:0;padding-left:18px}
+.notes-box li{margin-bottom:11px;font-size:14.5px}
+.notes-box b{color:var(--balise);font-weight:600}
+
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .shell{flex-direction:column}
+  .sidebar{
+    position:sticky;top:0;width:100%;height:auto;
+    border-right:none;border-bottom:5px solid var(--balise);
+    z-index:5;
+  }
+  .sidebar-head{display:none}
+  .sidenav{flex-direction:row;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 12px}
+  .sidenav-item{flex:0 0 auto;border-left:none;border-bottom:3px solid transparent;white-space:nowrap;padding:9px 13px}
+  .sidenav-item.active{border-left-color:transparent;border-bottom-color:var(--balise)}
+  /* aplana el grupo "Días": el toggle desaparece, los subitems se vuelven pills horizontales normales */
+  .sidenav-group{display:contents}
+  .sidenav-parent{display:none}
+  .sidenav-sub{display:contents;max-height:none;overflow:visible}
+  .sidenav-subitem{flex:0 0 auto;border-left:none;border-bottom:3px solid transparent;white-space:nowrap;padding:9px 13px;font-size:11.5px}
+  .sidenav-subitem.active{border-left-color:transparent;border-bottom-color:var(--balise)}
+  .content{padding:26px 18px 70px;height:auto;overflow-y:visible}
+}
+@media (max-width:560px){
+  .brand{font-size:34px}
+  .meteo{grid-template-columns:repeat(2,1fr)}
+  .kit{grid-template-columns:1fr}
+  .shortcuts{grid-template-columns:1fr}
+  .datum div{flex:1 1 45%}
+  .day{grid-template-columns:56px 1fr;gap:10px}
+  .day .when b{font-size:19px}
+  .info .row{grid-template-columns:1fr;gap:2px}
+  .info .k{padding-top:6px}
+  .place img{height:150px}
+  .place h3{font-size:19px}
+  .blade{font-size:12px;padding:10px 26px 10px 13px}
+  h2.page-title{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <p class="eyebrow">Hautes-Pyrénées · Parc National</p>
+      <h1 class="brand">VAL<br>D'AZUN</h1>
+      <p class="brand-dates">Domingo <b>26 jul</b> — domingo <b>2 ago</b> 2026<br>Camping Cap Pyrénées, Aucun</p>
+    </div>
+    <nav class="sidenav">
+      <button class="sidenav-item" data-view="general">General</button>
+      <button class="sidenav-item" data-view="clima">Clima</button>
+
+      <div class="sidenav-group open" id="dias-group">
+        <button class="sidenav-item sidenav-parent open" id="dias-toggle" aria-expanded="true">Días<span class="chev">▾</span></button>
+        <div class="sidenav-sub open" id="dias-sub">
+          <button class="sidenav-subitem" data-view="d26">Dom 26 · Llegada</button>
+          <button class="sidenav-subitem" data-view="d27">Lun 27 · Pont d'Espagne</button>
+          <button class="sidenav-subitem" data-view="d28">Mar 28 · Mercado + Parc Animalier</button>
+          <button class="sidenav-subitem" data-view="d29">Mié 29 · Lourdes + Bétharram</button>
+          <button class="sidenav-subitem" data-view="d30">Jue 30 · Gavarnie</button>
+          <button class="sidenav-subitem" data-view="d31">Vie 31 · Pic du Midi</button>
+          <button class="sidenav-subitem" data-view="d01">Sáb 1 · Lac d'Estaing</button>
+          <button class="sidenav-subitem" data-view="d02">Dom 2 · Salida</button>
+        </div>
+      </div>
+
+      <button class="sidenav-item" data-view="mochila">Mochila</button>
+
+      <div class="sidenav-group" id="sitios-group">
+        <button class="sidenav-item sidenav-parent" id="sitios-toggle" aria-expanded="false">Sitios<span class="chev">▾</span></button>
+        <div class="sidenav-sub" id="sitios-sub">
+          <button class="sidenav-subitem" data-view="place-camping">Camping Cap Pyrénées</button>
+          <button class="sidenav-subitem" data-view="place-pont-despagne">Pont d'Espagne</button>
+          <button class="sidenav-subitem" data-view="place-lac-gaube">Lac de Gaube</button>
+          <button class="sidenav-subitem" data-view="place-gavarnie">Cirque de Gavarnie</button>
+          <button class="sidenav-subitem" data-view="place-betharram">Grottes de Bétharram</button>
+          <button class="sidenav-subitem" data-view="place-parc-animalier">Parc Animalier</button>
+          <button class="sidenav-subitem" data-view="place-lourdes">Sanctuaires de Lourdes</button>
+          <button class="sidenav-subitem" data-view="place-pic-du-midi">Pic du Midi</button>
+          <button class="sidenav-subitem" data-view="place-soulor">Col du Soulor</button>
+          <button class="sidenav-subitem" data-view="place-couraduque">Couraduque</button>
+          <button class="sidenav-subitem" data-view="place-estaing">Lac d'Estaing</button>
+          <button class="sidenav-subitem" data-view="place-mercado-argeles">Mercado de Argelès</button>
+          <button class="sidenav-subitem" data-view="place-suyen">Lac de Suyen</button>
+          <button class="sidenav-subitem" data-view="place-loisirs-arrens">Base de Loisirs Arrens</button>
+        </div>
+      </div>
+
+      <button class="sidenav-item" data-view="dinero">Presupuesto</button>
+      <button class="sidenav-item" data-view="correr">Correr</button>
+      <button class="sidenav-item" data-view="notas">Antes de salir</button>
+    </nav>
+  </aside>
+
+  <main class="content" id="content">
+
+    <!-- GENERAL -->
+    <section class="view" id="view-general">
+      <h2 class="page-title">Val d'Azun, 26 jul – 2 ago</h2>
+      <p class="lede">Base en Camping Cap Pyrénées, Aucun · 865 m · 2 adultos + hijos de 13 y 11 años. Guía pensada para consultar rápido desde el móvil durante la semana: cada sección de la izquierda es su propia página.</p>
+
+      <div class="datum">
+        <div><span class="m">865 m</span><span class="n">Aucun · base</span></div>
+        <div><span class="m">1 367 m</span><span class="n">Couraduque</span></div>
+        <div><span class="m">1 474 m</span><span class="n">Soulor</span></div>
+        <div><span class="m">1 500 m</span><span class="n">Pont d'Espagne</span></div>
+        <div><span class="m">1 725 m</span><span class="n">Lac de Gaube</span></div>
+        <div><span class="m">2 877 m</span><span class="n">Pic du Midi</span></div>
+      </div>
+
+      <div class="shortcuts">
+        <button class="shortcut" data-view="clima"><span class="st">Clima</span><span class="sd">Previsión de los 8 días, consultada el 25/07</span></button>
+        <button class="shortcut" data-view="mochila"><span class="st">Mochila</span><span class="sd">Qué llevar, por categoría</span></button>
+        <button class="shortcut" data-view="dinero"><span class="st">Presupuesto</span><span class="sd">Desglose de la semana</span></button>
+        <button class="shortcut" data-view="notas"><span class="st">Antes de salir</span><span class="sd">Avisos prácticos del día a día</span></button>
+      </div>
+
+      <h2 class="page-title" style="margin-top:34px;font-size:22px">La semana, resumen</h2>
+      <p class="lede">Cada día tiene su propia página, con el sitio del día y su enlace directo a GPS — pulsa una fila para abrirla.</p>
+      <div class="daylist">
+        <button class="daylist-row" data-view="d26"><span class="dl-date">Dom 26</span><span class="dl-name">Llegada</span><span class="dl-t">16°</span></button>
+        <button class="daylist-row" data-view="d27"><span class="dl-date">Lun 27</span><span class="dl-name">Pont d'Espagne + Lac de Gaube</span><span class="dl-t">20°</span></button>
+        <button class="daylist-row" data-view="d28"><span class="dl-date">Mar 28</span><span class="dl-name">Mercado de Argelès + Parc Animalier</span><span class="dl-t">27°</span></button>
+        <button class="daylist-row" data-view="d29"><span class="dl-date">Mié 29</span><span class="dl-name">Lourdes + Grutas de Bétharram</span><span class="dl-t">30°</span></button>
+        <button class="daylist-row" data-view="d30"><span class="dl-date">Jue 30</span><span class="dl-name">Cirque de Gavarnie</span><span class="dl-t">29°</span></button>
+        <button class="daylist-row" data-view="d31"><span class="dl-date">Vie 31</span><span class="dl-name">Pic du Midi de Bigorre</span><span class="dl-t">24°</span></button>
+        <button class="daylist-row" data-view="d01"><span class="dl-date">Sáb 1</span><span class="dl-name">Lac d'Estaing y valle</span><span class="dl-t">27°</span></button>
+        <button class="daylist-row" data-view="d02"><span class="dl-date">Dom 2</span><span class="dl-name">Salida</span><span class="dl-t">—</span></button>
+      </div>
+
+      <h2 class="page-title" style="margin-top:34px;font-size:22px">Los sitios, resumen</h2>
+      <p class="lede">Cada sitio tiene su propia página, con GPS, contexto y dónde comer cerca — pulsa uno para abrirlo.</p>
+      <div class="sitelist">
+        <button class="sitelist-row" data-view="place-camping"><span class="sl-name">Camping Cap Pyrénées</span><span class="sl-stat">La base · 865 m</span></button>
+        <button class="sitelist-row" data-view="place-pont-despagne"><span class="sl-name">Pont d'Espagne</span><span class="sl-stat">1 500 m · ~8 €</span></button>
+        <button class="sitelist-row" data-view="place-lac-gaube"><span class="sl-name">Lac de Gaube</span><span class="sl-stat">1 725 m</span></button>
+        <button class="sitelist-row" data-view="place-gavarnie"><span class="sl-name">Cirque de Gavarnie</span><span class="sl-stat">UNESCO · ~8 €</span></button>
+        <button class="sitelist-row" data-view="place-betharram"><span class="sl-name">Grottes de Bétharram</span><span class="sl-stat">14 °C · ~62 € familia</span></button>
+        <button class="sitelist-row" data-view="place-parc-animalier"><span class="sl-name">Parc Animalier des Pyrénées</span><span class="sl-stat">~82 € familia</span></button>
+        <button class="sitelist-row" data-view="place-lourdes"><span class="sl-name">Sanctuaires de Lourdes</span><span class="sl-stat">Entrada libre</span></button>
+        <button class="sitelist-row" data-view="place-pic-du-midi"><span class="sl-name">Pic du Midi de Bigorre</span><span class="sl-stat">2 877 m · ~166 € familia</span></button>
+        <button class="sitelist-row" data-view="place-soulor"><span class="sl-name">Col du Soulor</span><span class="sl-stat">1 474 m</span></button>
+        <button class="sitelist-row" data-view="place-couraduque"><span class="sl-name">Station Sport Nature · Couraduque</span><span class="sl-stat">1 367 m</span></button>
+        <button class="sitelist-row" data-view="place-estaing"><span class="sl-name">Lac d'Estaing</span><span class="sl-stat">Gratis</span></button>
+        <button class="sitelist-row" data-view="place-mercado-argeles"><span class="sl-name">Mercado de Argelès-Gazost</span><span class="sl-stat">Solo martes</span></button>
+        <button class="sitelist-row" data-view="place-suyen"><span class="sl-name">Lac de Suyen</span><span class="sl-stat">Gratis</span></button>
+        <button class="sitelist-row" data-view="place-loisirs-arrens"><span class="sl-name">Base de Loisirs Arrens</span><span class="sl-stat">Gratis</span></button>
+      </div>
+    </section>
+
+    <!-- CLIMA -->
+    <section class="view" id="view-clima">
+      <h2 class="page-title">Previsión de la semana</h2>
+      <p class="lede">Orden del plan ajustado a esta previsión: las caminatas largas caen en los días frescos, y el día más caluroso queda para cueva, sombra y piscina. Previsión consultada el 25 de julio — vuelve a mirarla cada noche, en montaña cambia rápido.</p>
+      <div class="meteo">
+        <div class="md"><span class="d">Dom 26</span><span class="t">16°</span><span class="r">25% lluvia</span></div>
+        <div class="md"><span class="d">Lun 27</span><span class="t">20°</span><span class="r">5% lluvia</span></div>
+        <div class="md"><span class="d">Mar 28</span><span class="t">27°</span><span class="r">0% lluvia</span></div>
+        <div class="md hot"><span class="d">Mié 29</span><span class="t">30°</span><span class="r">0% lluvia</span></div>
+        <div class="md hot"><span class="d">Jue 30</span><span class="t">29°</span><span class="r">15% lluvia</span></div>
+        <div class="md"><span class="d">Vie 31</span><span class="t">24°</span><span class="r">20% lluvia</span></div>
+        <div class="md"><span class="d">Sáb 1</span><span class="t">27°</span><span class="r">25% lluvia</span></div>
+        <div class="md"><span class="d">Dom 2</span><span class="t">—</span><span class="r">salida</span></div>
+      </div>
+    </section>
+
+    <!-- DÍAS: una página independiente por día, con el/los sitio(s) de ese día -->
+    <section class="view" id="view-d26">
+      <h2 class="page-title">Domingo 26 — Llegada</h2>
+      <p class="lede">16° · 25% lluvia</p>
+      <p>Instalación, piscina y paseo suave por Aucun. Parada en el Carrefour Market de Argelès de camino para llenar la nevera: arriba en el valle las opciones son limitadas.</p>
+      <span class="tag free">Solo compra</span>
+      <div class="site-card">
+        <div><span class="sc-name">Camping Cap Pyrénées</span><span class="sc-meta">La base · 865 m · compra en Carrefour Market</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-camping">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=312015898544244092">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d27">
+      <h2 class="page-title">Lunes 27 — Pont d'Espagne + Lac de Gaube</h2>
+      <p class="lede">20° · 5% lluvia</p>
+      <p>El mejor día de la semana para caminar: fresco y prácticamente sin lluvia. Sal a las 8h, el aparcamiento se llena. Picnic arriba.</p>
+      <span class="tag">35 min en coche</span><span class="tag">Caminata 2h30</span><span class="tag">~58 €</span>
+      <div class="site-card">
+        <div><span class="sc-name">Pont d'Espagne</span><span class="sc-meta">1 500 m · ~8 € parking</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-pont-despagne">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=16177563497777825946">GPS</a></div>
+      </div>
+      <div class="site-card">
+        <div><span class="sc-name">Lac de Gaube</span><span class="sc-meta">1 725 m · +270 m desnivel</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-lac-gaube">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=10464996275090427990">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d28">
+      <h2 class="page-title">Martes 28 — Mercado + Parc Animalier</h2>
+      <p class="lede">27° · 0% lluvia</p>
+      <p>Mercado por la mañana (8h–13h, el único martes de vuestra estancia) y el Parc Animalier por la tarde. Comprad la comida en el mercado y comed de picnic entre las dos cosas.</p>
+      <span class="tag">15 min en coche</span><span class="tag">~82 € parque</span>
+      <div class="site-card">
+        <div><span class="sc-name">Mercado de Argelès-Gazost</span><span class="sc-meta">Solo martes · 8:00–13:00</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-mercado-argeles">Ver ficha →</button><a class="blade sm" href="https://www.google.com/maps/search/?api=1&query=March%C3%A9%20Argel%C3%A8s-Gazost%20Place%20de%20la%20R%C3%A9publique">GPS</a></div>
+      </div>
+      <div class="site-card">
+        <div><span class="sc-name">Parc Animalier des Pyrénées</span><span class="sc-meta">~500 animales · ~82 € familia</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-parc-animalier">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=17589839508665152963">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d29">
+      <h2 class="page-title">Miércoles 29 — Lourdes + Grutas de Bétharram</h2>
+      <p class="lede">30° · 0% lluvia</p>
+      <p>El día más caluroso. Las cuevas están a 14 °C constantes — es el mejor sitio donde estar. Lourdes por la mañana, cuevas después de comer, piscina al volver.</p>
+      <span class="tag warn">Día de calor</span><span class="tag">40 min</span><span class="tag">~62 €</span>
+      <div class="site-card">
+        <div><span class="sc-name">Sanctuaires de Lourdes</span><span class="sc-meta">Visita cultural · entrada libre</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-lourdes">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=11820121489617167813">GPS</a></div>
+      </div>
+      <div class="site-card">
+        <div><span class="sc-name">Grottes de Bétharram</span><span class="sc-meta">14 °C constantes · ~62 € familia</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-betharram">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=16268882230524202605">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d30">
+      <h2 class="page-title">Jueves 30 — Cirque de Gavarnie</h2>
+      <p class="lede">29° · 15% lluvia</p>
+      <p>El desplazamiento más largo y la caminata más emblemática. Sal antes de las 8h: evitas calor, tráfico y aparcamiento lleno.</p>
+      <span class="tag warn">Salida temprana</span><span class="tag">1h10</span><span class="tag">~8 € + comida</span>
+      <div class="site-card">
+        <div><span class="sc-name">Cirque de Gavarnie</span><span class="sc-meta">Patrimonio UNESCO · ~8 € parking</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-gavarnie">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=8518816159801831273">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d31">
+      <h2 class="page-title">Viernes 31 — Día de aventura</h2>
+      <p class="lede">24° · 20% lluvia</p>
+      <p>El día más fresco: perfecto para actividad física. Pic du Midi si el cielo está despejado — es la excursión cara de la semana. Si amanece nublado, cambia a rapaces en el Soulor o rafting.</p>
+      <span class="tag">Reservar online</span><span class="tag">~166 € Pic</span>
+      <div class="site-card">
+        <div><span class="sc-name">Pic du Midi de Bigorre</span><span class="sc-meta">2 877 m · cierra los jueves</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-pic-du-midi">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=17920341294546427157">GPS</a></div>
+      </div>
+      <div class="site-card">
+        <div><span class="sc-name">Col du Soulor</span><span class="sc-meta">Alternativa si está nublado · ~60 € rapaces</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-soulor">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=14681206188793780458">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d01">
+      <h2 class="page-title">Sábado 1 — Lac d'Estaing y valle</h2>
+      <p class="lede">27° · 25% lluvia</p>
+      <p>Día tranquilo cerca de casa: vuelta al lago, picnic, canoa. Y la base de ocio de Arrens-Marsous para gastar la energía que quede.</p>
+      <span class="tag">15 min</span><span class="tag free">Sin coste</span>
+      <div class="site-card">
+        <div><span class="sc-name">Lac d'Estaing</span><span class="sc-meta">Día tranquilo · gratis</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-estaing">Ver ficha →</button><a class="blade sm" href="https://www.google.com/maps/search/?api=1&query=42.9068308%2C-0.2074687&query_place_id=ChIJs50YiMnDVw0R9MT8A3hkP8s">GPS</a></div>
+      </div>
+      <div class="site-card">
+        <div><span class="sc-name">Base de Loisirs · Arrens-Marsous</span><span class="sc-meta">Para los niños · acceso gratis</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-loisirs-arrens">Ver ficha →</button><a class="blade sm" href="https://www.google.com/maps/search/?api=1&query=Base%20de%20Loisirs%20Arrens-Marsous">GPS</a></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-d02">
+      <h2 class="page-title">Domingo 2 — Salida</h2>
+      <p class="lede">Última mañana</p>
+      <p>Carrera corta de despedida por los senderos del Couraduque, recogida y vuelta.</p>
+      <div class="site-card">
+        <div><span class="sc-name">Station Sport Nature · Couraduque</span><span class="sc-meta">1 367 m · 100 km de senderos</span></div>
+        <div class="sc-links"><button class="sc-more" data-view="place-couraduque">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=9824092052432772995">GPS</a></div>
+      </div>
+    </section>
+
+    <!-- MOCHILA -->
+    <section class="view" id="view-mochila">
+      <h2 class="page-title">La mochila</h2>
+      <p class="lede">En montaña se pasa de 15 °C a 30 °C en la misma mañana, y de sol a tormenta en una hora. Lo que va abajo no ocupa nada y evita el 90 % de los problemas.</p>
+      <div class="kit">
+        <div class="box">
+          <h3>Siempre en la mochila</h3>
+          <ul>
+            <li>Agua: 1,5 l por persona en día de caminata</li>
+            <li>Chubasquero fino, aunque el parte diga que no llueve</li>
+            <li>Forro polar o sudadera (arriba refresca de golpe)</li>
+            <li>Gorra, gafas de sol y crema alta: a 1 500 m quema el doble</li>
+            <li>Frutos secos y barritas: fuera de los pueblos no hay nada</li>
+            <li>Bolsa para la basura — no hay papeleras en el parque nacional</li>
+            <li>Efectivo en monedas para los parkings</li>
+            <li>Botiquín mínimo: tiritas, ibuprofeno, gel antiséptico</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Calzado y ropa</h3>
+          <ul>
+            <li>Zapatilla de trekking o trail cerrada para todos: hay piedra suelta y tramos mojados</li>
+            <li>Nada de chanclas en las rutas, ni en el Pont d'Espagne</li>
+            <li>Manga larga fina para las grutas (14 °C) y el Pic du Midi (puede haber 5 °C en agosto)</li>
+            <li>Bañador siempre en el coche: piscina del camping, lago, arroyos</li>
+            <li>Toalla pequeña de secado rápido</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Para los niños</h3>
+          <ul>
+            <li>Su propia mochila pequeña con su agua y su snack: se implican más</li>
+            <li>Cantimplora rellenable — hay fuentes en los pueblos</li>
+            <li>Prismáticos baratos: marmotas, isards y quebrantahuesos se ven de verdad</li>
+            <li>Bastón de senderismo si son de cansarse en bajada</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>En el coche</h3>
+          <ul>
+            <li>Nevera portátil: en julio el coche se convierte en un horno</li>
+            <li>Mapas descargados offline — hay valles sin cobertura (Estaing, Suyen)</li>
+            <li>Cargador y batería externa</li>
+            <li>Depósito lleno antes de subir a los puertos: la última gasolinera fiable está en Argelès</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SITIOS: cada sitio es su propia página independiente -->
+
+    <section class="view" id="view-place-camping">
+      <div class="place" id="place-camping">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjBLQ4XIzYJQQQXg9XX8_Lf_S6kM3BqJMfLeCCPYXtazQIgN1NGDwLVxDPNNecI7-GYHCYXXe96ZGhdL2_ub3u8ubNcDtwlcvrA5n9Dj4pDYMxA4bpcQZqcDXso4bhKqOaSfamHDd7qjoSedI20=s4800-w800-h600" alt="Camping Cap Pyrénées en Aucun" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Camping Cap Pyrénées · la base</h3>
+          <div class="stats"><span class="key">865 m</span><span>2 Rte de Las Poueyes, Aucun</span><span>+33 5 62 97 42 62</span></div>
+          <p>Piscina climatizada, bar y zona de juegos. Wifi gratuito. Zona de aterrizaje de parapente al lado — buen espectáculo gratis por las tardes.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Aucun" target="_blank" rel="noopener">Wikipedia: Aucun →</a>
+          <div class="info">
+            <div class="row"><span class="k">Compra</span><span class="v">Carrefour Market de Argelès-Gazost, a 15 min. Abre 8:30–20:00 (dom. hasta 19:00). Es el sitio grande más cercano: sube reabastecido, en el valle alto apenas hay tiendas.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Carrefour%20Market%20Argeles%20Gazost&query_place_id=ChIJLVmU6hnaVw0RCnCUgtqFH8E">GPS</a></span></div>
+            <div class="row"><span class="k">Cenar</span><span class="v">Con niños cansados, lo práctico es cocinar en el alojamiento casi todas las noches y reservar 2 o 3 comidas fuera para los días de excursión.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=312015898544244092">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-pont-despagne">
+      <div class="place" id="place-pont-despagne">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjA7t4kCKoPYFvLHe6yVPU_qE4vkdxel-SaX-HIZzJyfbdO5BSumdReRdhDzQMeicVl1TKalY9Tl_WvVO1Yj8HzkWDmgbxqCmzS5x5OkiRo40wOq4HfQ_glxLhJlTxXnZK_h4Irzd7EMI3Dt6A=s4800-w800-h600" alt="Cascadas del Pont d'Espagne" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Pont d'Espagne</h3>
+          <div class="stats"><span class="key">1 500 m</span><span>35 min · ~24 km</span><span>5 min a pie del parking</span><span class="eur">~8 € parking</span></div>
+          <p>Puente de piedra de 1886 sobre una cascada de caudal espectacular, en la confluencia de dos torrentes. Sendero ancho y cómodo, bosque de coníferas y agua por todas partes. Es la puerta de entrada a los valles altos.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Pont_d'Espagne" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>El nombre viene del antiguo camino de herradura que unía Francia y España mucho antes de que existiera carretera: arrieros y contrabandistas cruzaban aquí la frontera. Hoy es la razón por la que la gente sube: es el sitio con más cascadas por metro cuadrado del Parque Nacional, y desde aquí arrancan todas las rutas hacia los valles altos (Marcadau, Gaube). Lo recomiendo porque, a diferencia de Gavarnie, se llega andando en cinco minutos y ya impresiona — perfecto para el primer contacto con la montaña de los niños.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Parking del Pont d'Espagne, 7 km sobre Cauterets, unos 7–8 € el día. En agosto se llena antes de las 10h: llega a las 8:30 o usa la lanzadera desde el pueblo (15 min).<a class="pin" href="https://maps.google.com/?cid=16177563497777825946">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Lleva picnic. Arriba solo está la Hostellerie du Pont d'Espagne<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Hostellerie%20du%20Pont%20d%27Espagne&query_place_id=ChIJp0XFfe_nVw0RU6DWuZUDWtw">GPS</a> y las reseñas de su servicio son flojas. Mejor opción de vuelta: <b>l'Abri du Benques</b> (4,6★), en La Raillère, junto a la cascada del Lutour, abierto 10–19h todos los días.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=l%27Abri%20du%20Benques%20Cauterets&query_place_id=ChIJVf1SLIPdVw0REJ9hIfSFMlQ">Reseñas</a> Si bajáis hasta Cauterets centro: <b>À la Bonne Franquette</b> (4,9★, solo cena mar–mié, reserva imprescindible)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=A%20la%20Bonne%20Franquette%20Cauterets&query_place_id=ChIJKaS1mgndVw0RhHj30JuhziA">Reseñas</a> o <b>Maison Alix</b> (4,7★, abierto todos los días)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Maison%20Alix%20Cauterets&query_place_id=ChIJ92BPRfbdVw0Rsv4oY9CD6JE">Reseñas</a></span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Parking ~8 € + pase telecabina y telesilla si subís al lago sin caminar (~12,50–15 € por persona, con tarifa familiar). Sin remontes, solo el parking.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">No se admiten perros. Camino ancho, pero con piedra suelta en tramos.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=16177563497777825946">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-lac-gaube">
+      <div class="place" id="place-lac-gaube">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjDi2ryGlDYdPXfjfp_4h8lnR5UOLxDArAJQ4WVaueAbxK1gh4B9b7nNtr5C6d-ubjxFR2hAHdhBzLu4h2mefNwqnEroRwlZh9oDVch3Gykw-DOsth6h994ZRVqE0JMS-ivG-Fzu18Urk_edpA=s4800-w800-h600" alt="Lac de Gaube" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Lac de Gaube</h3>
+          <div class="stats"><span class="key">1 725 m</span><span>+270 m desnivel</span><span>1h10 a pie</span><span>o telesilla + 20 min</span></div>
+          <p>Lago de agua turquesa con el Vignemale al fondo. Se sube desde el Pont d'Espagne por el GR10 o en telesilla si las piernas cortas se cansan. Hay restaurante arriba, pero merece la pena llevar picnic y comer en la orilla.</p>
+          <a class="wiki-link" href="https://fr.wikipedia.org/wiki/Lac_de_Gaube" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>Es uno de los lagos más fotografiados de los Pirineos franceses, con el Vignemale (3 298 m, el techo francés del macizo) reflejado en el agua. El montañero Henry Russell, obsesionado con el Vignemale a finales del XIX, lo hizo célebre entre los primeros pirineístas. Lo recomiendo porque combina bien con el Pont d'Espagne en la misma salida y el premio visual «el color del agua» es de los más espectaculares que vais a ver en la semana.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Comer</span><span class="v">Picnic en la orilla, sin discusión: es el mejor comedor del viaje. Hay refugio-restaurante junto al lago para un café.</span></div>
+            <div class="row"><span class="k">Llevar</span><span class="v">Calzado con suela agarrada — la bajada tiene piedras resbaladizas y es donde la gente se tuerce el tobillo.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Al llegar al lago, toma el camino de la derecha. Por la izquierda no hay sendero practicable y hay que volverse.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=10464996275090427990">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-gavarnie">
+      <div class="place" id="place-gavarnie">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjA0ZPxoyZHgecWUboN8WbBbv87m-1DT-ju9Jept6XyVFT91QpvFYejV80EoANTm0sj80xIaLaHRy3osH-g1GmFvmcAUBSAXqCAu9a-QJ4h_YS4XztvxbG7UTQ4jz9SNOpVO1NiAfrSoLhsv=s4800-w800-h600" alt="Cirque de Gavarnie" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Cirque de Gavarnie</h3>
+          <div class="stats"><span class="key">Patrimonio UNESCO</span><span>1h10 · ~40 km</span><span>7,9 km ida y vuelta</span><span class="eur">~8 € parking</span></div>
+          <p>Un anfiteatro glaciar de paredes de 3 000 m con la cascada más alta de Europa (422 m) cayendo por el centro. Victor Hugo lo llamó «el coliseo de la naturaleza». El sendero sale del pueblo, es ancho y llano, y en 1h30 llegas al mirador de la Hôtellerie du Cirque.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Cirque_de_Gavarnie" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>Desde el siglo XVI, botánicos, científicos y montañeros exploraron este circo, dando origen al «pirineísmo». Victor Hugo lo visitó en 1843, escribiendo después su famoso poema «Dieu». Patrimonio Mundial UNESCO desde 1997. Lo recomiendo porque no hay nada parecido en la zona: la escala es literalmente distinta a cualquier otro valle que vayáis a ver esta semana.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Obligatorio en las zonas habilitadas a la entrada del pueblo, ~8 € por 24 h. No intentes llegar en coche hasta la Hôtellerie: la carretera está cerrada gran parte del día.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Gavarnie%20village">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Picnic en el mirador y comida tardía en el pueblo al bajar. <b>La Kantine</b> (4,8★) es la mejor valorada (cierra los miércoles)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=La%20Kantine%20Gavarnie&query_place_id=ChIJEzT0dRPjVw0RRwLZJul2uuU">Reseñas</a>; <b>Claire Montagne</b> tiene terraza con vistas y cordero local.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Claire%20Montagne%20Gavarnie&query_place_id=ChIJczFcqpDiVw0RR--jOC4xHJU">GPS</a></span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Solo el parking. El sendero es gratuito. Opcional: subir a caballo o en burro desde el pueblo.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Con niños, quedarse en la Hôtellerie ya compensa el viaje. Seguir hasta la base de la cascada suma 45 min y bastante piedra.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=8518816159801831273">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-betharram">
+      <div class="place" id="place-betharram">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjC3GQ4xSTnaNd-OsyuE0NI0DyOCULaBYK-eZagXOOO-cYOI7lVEM_2IJ8yGK_mw2-Nz2qRMFSRcxe1_NgRqlqkYqUS0Z339LUL5bain82T77BvuNMBGkHS8q6SPBEnmF0QBIXWe3eqire5PFc4=s4800-w800-h600" alt="Grottes de Bétharram" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Grottes de Bétharram</h3>
+          <div class="stats"><span class="key">14 °C constantes</span><span>40 min · ~30 km</span><span>Visita guiada 1h20</span><span class="eur">~62 € familia</span></div>
+          <p>La visita subterránea más divertida de la zona y perfecta para los niños: bus de acceso, recorrido a pie entre estalactitas por cinco niveles, tramo en barca por un río subterráneo y vuelta en trencito. Audioguías en varios idiomas.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Grottes_de_B%C3%A9tharram" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>Descubiertas en 1810, exploradas a fondo en el XIX y abiertas al público en 1903 por León Ross, que las electrificó a mano. Fueron de las primeras grutas de Francia abiertas de forma turística, y la fórmula a pie + barca + tren sigue siendo la misma idea de hace más de un siglo. Lo recomiendo porque es de las pocas visitas de la zona que no depende del tiempo que haga fuera.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Parking gratuito en Saint-Pé-de-Bigorre, salida de la cueva. Desde ahí una lanzadera gratuita os lleva a la entrada.<a class="pin" href="https://maps.google.com/?cid=16268882230524202605">GPS</a></span></div>
+            <div class="row"><span class="k">Reservar</span><span class="v">Muy recomendable reservar online. Presentarse 15 minutos antes de la hora de la visita.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Alrededor de 17 € adulto y 11 € niño (4–12 años). Vuestro hijo de 13 paga tarifa adulta. Confirma en betharram.com.</span></div>
+            <div class="row"><span class="k">Llevar</span><span class="v">Chaqueta fina: dentro hay 14 °C todo el año. Calzado cómodo — hay muchas escaleras.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=16268882230524202605">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-parc-animalier">
+      <div class="place" id="place-parc-animalier">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjBUtaJxmD27ikHG_3YUGjrph5iVMokstKw4Kupr5q_CGbLXnlVZndiC3lH9LJblyc00rUonhRrwU0EBydYpARnnNQKCam7dfGMSJeREO2owvW-fr9wVyu1GdK7pLqxkZiNHneEC2EL2JFSl=s4800-w800-h600" alt="Parc Animalier des Pyrénées" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Parc Animalier des Pyrénées</h3>
+          <div class="stats"><span class="key">~500 animales</span><span>15 min · ~8 km</span><span>Jul–ago 9:30–19:00</span><span class="eur">~82 € familia</span></div>
+          <p>Osos pardos, lobos, lince, marmotas, nutrias, quebrantahuesos, panda rojo, gibones y lémures, en 14 hectáreas de ladera con recintos inmersivos. Hay dos recorridos, uno corto y otro largo por la parte alta.</p>
+          <a class="wiki-link" href="https://fr.wikipedia.org/wiki/Parc_animalier_des_Pyr%C3%A9n%C3%A9es" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>El oso pardo desapareció casi por completo del Pirineo francés en el siglo XX; desde los años 90 se reintrodujeron ejemplares de Eslovenia, algo que sigue generando debate entre conservacionistas y ganaderos (de ahí los perros patou que veréis en los pastos). Lo recomiendo porque es la manera más fácil de ver de cerca la fauna que da nombre a todo lo demás que vais a visitar esta semana.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Parking propio del parque en Ayzac-Ost, a la entrada. Sin problema de plazas.<a class="pin" href="https://maps.google.com/?cid=17589839508665152963">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Cafetería a mitad de recorrido. Con el mercado de la mañana en el cuerpo, mejor picnic antes de entrar.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">22 € adulto (desde 12 años) y 16 € niño (3–11) en 2026. Vuestro hijo de 13 paga adulto: 3 × 22 + 1 × 16 = <b>82 €</b>. Comprar online suele salir algo más barato.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Está en cuesta, con tramos empinados. La taquilla cierra a las 17:30 en julio y agosto — no llegues tarde.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=17589839508665152963">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-lourdes">
+      <div class="place" id="place-lourdes">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjBWxyFcIwocmIDjaRqeUpPTxDc2h3DEp1-2zK3i8wqBcp0Xcu5-bvjU8sqEoT6-iTBFOiaYJwLpPtxuZTiXNnBTNztmbIdOSIqmUZmE4zwTpTbKPcESbs7wROe47GkvsUZWR52NM9bLFgVtug=s4800-w800-h600" alt="Santuario de Lourdes" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Sanctuaires de Lourdes</h3>
+          <div class="stats"><span class="key">Visita cultural</span><span>30 min · ~20 km</span><span>Abierto 6:00–1:00</span><span class="eur">Entrada libre</span></div>
+          <p>El recinto de los santuarios, la gruta de las apariciones y la basílica. Impresiona por escala y por la mezcla de gente de todo el mundo. Se ve bien en dos horas.</p>
+          <a class="wiki-link" href="https://es.wikipedia.org/wiki/Santuario_de_Lourdes" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>En 1858, una pastora de 14 años, Bernadette Soubirous, dijo haber visto dieciocho veces a una «Señora» en la gruta de Massabielle. Desde entonces Lourdes se convirtió en uno de los lugares de peregrinación más grandes del mundo — unos 6 millones de visitantes al año. Lo recomiendo como visita cultural aunque no se comparta la fe: la escala del fenómeno es en sí misma parte de lo que hay que ver.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Los parkings del centro son de pago y en agosto están saturados. Aparca en la periferia y entra andando.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Lourdes%20centre">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Muchísima oferta turística alrededor, de calidad desigual. Si enlazas con Bétharram, come ligero aquí y cena bien en Argelès al volver.</span></div>
+            <div class="row"><span class="k">Llevar</span><span class="v">Hombros y rodillas cubiertos para entrar en las basílicas.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=11820121489617167813">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-pic-du-midi">
+      <div class="place" id="place-pic-du-midi">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjCvHnewnVZVoNIDJlOfXNnTBYM2sI4fd33Dt4UlbkkPbyuY9_-Aa-GSUgxcIBWrZOBCC3Vsbt9jMS88Yzj9U58QU5p3BfOkpttfybuZDk_Qme6-XQsxOvtN8FZjkitcPTQsVzL6jdeuNZGhMlY=s4800-w800-h553" alt="Observatorio del Pic du Midi de Bigorre" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Pic du Midi de Bigorre</h3>
+          <div class="stats"><span class="key">2 877 m</span><span>1h15–1h30 · ~70 km</span><span>Cierra los jueves</span><span class="eur">~166 € familia</span></div>
+          <p>Se sube en teleférico desde La Mongie hasta el observatorio astronómico de alta montaña más antiguo del mundo. Panorámica de 360° sobre toda la cadena pirenaica, pasarela suspendida en el vacío, museo y planetario.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Pic_du_Midi_de_Bigorre" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>El observatorio se construyó a partir de 1878, subiendo material a pie y a lomos de mula, y se inauguró en 1882. El teleférico que hoy usáis para subir en 15 minutos no existió hasta 1952. Hoy sigue siendo observatorio en activo. Lo recomiendo por la vista, pero también porque es de los pocos sitios donde ciencia real y turismo conviven en el mismo edificio.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Parking en la estación de La Mongie, junto a la salida del teleférico.<a class="pin" href="https://maps.google.com/?cid=17920341294546427157">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Hay restaurante en la cima, caro. Alternativa: subir después de comer, aunque se pierde el mejor momento de visibilidad.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Desde 44 € adulto y 34 € niño reservando online en 2026. Para vuestra familia, alrededor de <b>166 €</b>.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Los billetes no se cambian ni se devuelven. Sube solo con cielo despejado y ve por la mañana. <b>Cierra los jueves.</b></span></div>
+            <div class="row"><span class="k">Llevar</span><span class="v">Chaqueta de verdad. En agosto puede haber 5 °C y viento en la pasarela.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=17920341294546427157">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-soulor">
+      <div class="place" id="place-soulor">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjD7LQFxTccOzYPxY4va4niqOZH3Pj9zrMg2ZJhCVgJMOAAZPLk6OfezZA1Z1fB-FUW3rqhbpDOBKOYDp-SbZyg7ssgtYxJDdqbrPH3lPKz1L9X7o2dVEtWE7u2BJbaCy_DTxzH8fvijgPXOpg=s4800-w800-h600" alt="Col du Soulor" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Col du Soulor</h3>
+          <div class="stats"><span class="key">1 474 m</span><span>20 min · ~10 km</span><span>Puerto del Tour</span><span class="eur">~60 € rapaces</span></div>
+          <p>Puerto mítico del Tour de Francia con vistas abiertas al Pic du Gabizos y pastos con rebaños en libertad. Desde aquí sale la carretera en cornisa hacia el Aubisque (1 709 m). Hay café y aseos arriba.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Col_du_Soulor" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>El Aubisque y el Soulor entraron en el Tour de Francia en 1910. La zona sigue viviendo del pastoreo de verano, por eso veréis rebaños sueltos y los perros patou que los protegen.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Aparcamiento libre en el propio collado.<a class="pin" href="https://maps.google.com/?cid=14681206188793780458">GPS</a></span></div>
+            <div class="row"><span class="k">Actividad</span><span class="v">«Rapaces au Soulor» hasta el 28 de agosto: identificación de aves rapaces con guía, desde 6–7 años, con bajada en tirolina incluida. Reserva obligatoria.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Unos 20 € adulto, 15 € menor de 16 y <b>60 € la tarifa familiar</b>. El collado en sí es gratis.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Zona pastoral con perros patou sueltos — ver la página de Notas.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=14681206188793780458">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-couraduque">
+      <div class="place" id="place-couraduque">
+        <img src="https://lh3.googleusercontent.com/place-photos/AG9NLjDJMuKGZlUe7FJTKB7clKOa_4IkeK-mCglzi3N-4ulQ3go6EGQAmcJnZwXCaDx5vwSQWA16EaPr_cedX_6NceYAJFLGnDuOMPgB0M57Shx50U9FVK0D6Ctw71awljXm0P5evGXDXTuABB8V0vM=s4800-w800-h600" alt="Station Sport Nature del Val d'Azun" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Station Sport Nature · Col de Couraduque</h3>
+          <div class="stats"><span class="key">1 367 m</span><span>15 min · ~6 km</span><span>100 km de senderos</span><span>9:00–17:00</span></div>
+          <p>Tu campo de juego para correr y el comodín familiar cuando no apetezca coger el coche. 100 km de pistas balizadas, 6 recorridos de trail señalizados. En verano añaden patinetes eléctricos, tirolina, mountain-luge y actividades de naturaleza para niños.</p>
+          <a class="wiki-link" href="https://fr.wikipedia.org/wiki/Val_d'Azun" target="_blank" rel="noopener">Wikipedia: Val d'Azun →</a>
+          <div class="info">
+            <div class="row"><span class="k">Comer</span><span class="v"><b>Le Couraduque</b> (4,8★), en el propio collado: crepes, quiches y producto local con vistas al valle, abierto 10:30–18:00 todos los días.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Le%20Couraduque%20Aucun&query_place_id=ChIJaWmuC97FVw0RHpNn8xyv8L8">Reseñas</a></span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Senderos gratuitos. Actividades de verano entre 5 y 15 € por actividad.</span></div>
+          </div>
+          <a class="blade" href="https://maps.google.com/?cid=9824092052432772995">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-estaing">
+      <div class="place" id="place-estaing">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Lac_d%27Estaing_%28Hautes-Pyr%C3%A9n%C3%A9es%29_1.jpg" alt="Lac d'Estaing" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Lac d'Estaing</h3>
+          <div class="stats"><span class="key">Día tranquilo</span><span>15 min · ~10 km</span><span>Vuelta al lago fácil</span><span class="eur">Gratis</span></div>
+          <p>Lago de montaña rodeado de bosque, con vacas pastando alrededor, restaurante con aseos, mesas de picnic y paseos en poni. Vuelta al lago cómoda, arroyo donde meter los pies.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Lac_d'Estaing" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Se llega en coche hasta la orilla. En agosto conviene llegar antes de las 11h.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=42.9068308%2C-0.2074687&query_place_id=ChIJs50YiMnDVw0R9MT8A3hkP8s">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">Restaurante-camping junto al lago, y mesas de picnic. En verano venden miel ecológica de los Pirineos allí mismo.</span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Sin cobertura móvil. Descarga el mapa antes de subir.</span></div>
+          </div>
+          <a class="blade" href="https://www.google.com/maps/search/?api=1&query=42.9068308%2C-0.2074687&query_place_id=ChIJs50YiMnDVw0R9MT8A3hkP8s">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-mercado-argeles">
+      <div class="place" id="place-mercado-argeles">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Mercado de Argelès-Gazost</h3>
+          <div class="stats"><span class="key">Solo martes</span><span>8:00–13:00</span><span>15 min · ~8 km</span><span class="eur">Entrada gratis</span></div>
+          <p>Mercado con más de 700 años de historia. Cerdo negro de Bigorre, quesos de oveja de los puertos, tomme y Ossau-Iraty, miel del Val d'Azun, alubias de Tarbes, tartas de arándano silvestre y el gâteau à la broche haciéndose al fuego de leña.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Argel%C3%A8s-Gazost" target="_blank" rel="noopener">Wikipedia: Argelès-Gazost →</a>
+          <div class="story"><span class="eyebrow2">Por qué se visita</span><p>Documentado desde 1292, es de los mercados más antiguos de los Altos Pirineos. Lo recomiendo porque, a diferencia de otros mercados más orientados al visitante, este sigue siendo sobre todo un mercado de la gente del valle.</p></div>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Las calles del centro se cortan durante el mercado. Aparca en el Carrefour Market y entra andando.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Carrefour%20Market%20Argeles%20Gazost&query_place_id=ChIJLVmU6hnaVw0RCnCUgtqFH8E">GPS</a></span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Cuenta 30–50 € si compráis embutido, queso y fruta para varios días de picnic.</span></div>
+            <div class="row"><span class="k">Comer</span><span class="v"><b>La Table d'Ayzi</b> (4,6★, cierra domingo): carne de su propia ganadería, tartar muy recomendado.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=La%20Table%20d'Ayzi%20Argeles-Gazost&query_place_id=ChIJq0T8Q2naVw0RJAfr73s1Mx8">Reseñas</a> Para una cena especial, <b>Au Fond Du Gosier</b> (4,6★, cierra lunes y domingo, reserva imprescindible): menú cerrado con producto local.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Au%20Fond%20Du%20Gosier%20Argeles-Gazost&query_place_id=ChIJ6S1WsIQhqBIRIMryBkvV1Fg">Reseñas</a></span></div>
+            <div class="row"><span class="k">Ojo</span><span class="v">Llega antes de las 9h para las mejores piezas de cerdo negro. Lleva efectivo y bolsa de tela.</span></div>
+          </div>
+          <a class="blade" href="https://www.google.com/maps/search/?api=1&query=March%C3%A9%20Argel%C3%A8s-Gazost%20Place%20de%20la%20R%C3%A9publique">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-suyen">
+      <div class="place" id="place-suyen">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Lac_de_Suyen_%28Hautes-Pyr%C3%A9n%C3%A9es%29_1.jpg" alt="Lac de Suyen" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Lac de Suyen</h3>
+          <div class="stats"><span class="key">Ruta familiar</span><span>20 min en coche</span><span>4 km · +102 m</span><span class="eur">Gratis</span></div>
+          <p>La caminata corta favorita de la gente del valle: se llega al lago en 30–40 minutos por un camino suave, y se puede alargar hasta la cabaña de Doumblas y su cascada.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Lac_de_Suyen" target="_blank" rel="noopener">Wikipedia →</a>
+          <div class="info">
+            <div class="row"><span class="k">Aparcar</span><span class="v">Parking al final de la carretera del valle del Gave d'Arrens, pasado Arrens-Marsous. Pequeño: ve temprano.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Lac%20de%20Suyen%20Arrens-Marsous">GPS</a></span></div>
+            <div class="row"><span class="k">Comer</span><span class="v">No hay nada arriba. Picnic obligatorio, y de vuelta parada en Arrens-Marsous.</span></div>
+          </div>
+          <a class="blade" href="https://www.google.com/maps/search/?api=1&query=Lac%20de%20Suyen%20Arrens-Marsous">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-place-loisirs-arrens">
+      <div class="place" id="place-loisirs-arrens">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Pump_track_de_Arrens-Marsous_%28Hautes-Pyr%C3%A9n%C3%A9es%29_1.jpg" alt="Pumptrack de la Base de Loisirs, Arrens-Marsous" loading="lazy">
+        <div class="body">
+          <button class="place-top" data-top>↑ Arriba</button>
+          <h3>Base de Loisirs · Arrens-Marsous</h3>
+          <div class="stats"><span class="key">Para los niños</span><span>10 min en coche</span><span class="eur">Acceso gratis</span></div>
+          <p>Pumptrack, tirolina infantil, rocódromo, slackline, pistas deportivas y zona de picnic, con acceso libre. Al lado hay piscina municipal climatizada con tobogán y zona infantil.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Arrens-Marsous" target="_blank" rel="noopener">Wikipedia: Arrens-Marsous →</a>
+          <div class="info">
+            <div class="row"><span class="k">Presupuesto</span><span class="v">La base es gratuita. La piscina municipal se paga aparte.</span></div>
+            <div class="row"><span class="k">Llevar</span><span class="v">Casco propio si lo tenéis para el pumptrack, bañador y toalla.</span></div>
+          </div>
+          <a class="blade" href="https://www.google.com/maps/search/?api=1&query=Base%20de%20Loisirs%20Arrens-Marsous">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DINERO -->
+    <section class="view" id="view-dinero">
+      <h2 class="page-title">Presupuesto de la semana</h2>
+      <p class="lede">Cálculo para 2 adultos + 1 chaval de 13 + 1 de 11. Atención: en casi todos estos sitios la tarifa adulta empieza a los 12 años, así que el mayor paga como adulto.</p>
+      <div class="budget">
+        <div class="brow"><span class="bname">Pic du Midi</span><span class="bdet">3 × 44 € + 1 × 34 €, reservando online</span><span class="bamt">~166 €</span></div>
+        <div class="brow"><span class="bname">Parc Animalier</span><span class="bdet">3 × 22 € + 1 × 16 €</span><span class="bamt">~82 €</span></div>
+        <div class="brow"><span class="bname">Grottes de Bétharram</span><span class="bdet">3 × ~17 € + 1 × ~11 €</span><span class="bamt">~62 €</span></div>
+        <div class="brow"><span class="bname">Rapaces au Soulor</span><span class="bdet">Tarifa familiar, tirolina incluida</span><span class="bamt">~60 €</span></div>
+        <div class="brow"><span class="bname">Pont d'Espagne</span><span class="bdet">Parking 8 € + remontes opcionales</span><span class="bamt">~8–58 €</span></div>
+        <div class="brow"><span class="bname">Cirque de Gavarnie</span><span class="bdet">Solo parking, 24 h</span><span class="bamt">~8 €</span></div>
+        <div class="brow"><span class="bname">Mercado de Argelès</span><span class="bdet">Compra para picnics de varios días</span><span class="bamt">~30–50 €</span></div>
+        <div class="brow"><span class="bname">Lourdes</span><span class="bdet">Entrada libre, solo parking</span><span class="bamt free">~5 €</span></div>
+        <div class="brow"><span class="bname">Lac d'Estaing · Suyen · Soulor</span><span class="bdet">Senderos y aparcamiento libres</span><span class="bamt free">0 €</span></div>
+        <div class="brow"><span class="bname">Base de Loisirs Arrens</span><span class="bdet">Acceso libre; piscina municipal aparte</span><span class="bamt free">0 €</span></div>
+        <div class="brow sum"><span class="bname">Visitas y actividades</span><span class="bdet">Sin comidas ni combustible</span><span class="bamt">~420–470 €</span></div>
+      </div>
+      <p class="lede" style="margin-top:18px">
+        <b>Comidas fuera:</b> cuenta 60–90 € por comida familiar en restaurante de valle. Con 3 comidas fuera en la semana, unos <b>200–270 €</b>.<br>
+        <b>Combustible:</b> alrededor de 300 km de excursiones en la semana, unos <b>35–45 €</b>.<br>
+        <b>Total orientativo de la semana</b>, sin alojamiento ni viaje de ida y vuelta: <b>650–780 €</b>.
+      </p>
+      <p class="lede" style="font-size:13px">Dos formas fáciles de bajarlo: sustituir el Pic du Midi por la salida de rapaces en el Soulor ahorra unos 100 €, y subir andando al Lac de Gaube en vez de usar los remontes ahorra otros 50 €.</p>
+    </section>
+
+    <!-- CORRER -->
+    <section class="view" id="view-correr">
+      <h2 class="page-title">Correr al amanecer</h2>
+      <p class="lede">Tres opciones sin necesidad de coordinarte con nadie. Todas salen de casa o a diez minutos en coche.</p>
+      <div class="run"><h3>Senderos del Couraduque</h3><p class="sp">A 6 km · Trail · 6 recorridos balizados</p>
+        <p>Lo mejor de la zona para correr: 100 km de pistas señalizadas entre bosque de abetos, cresta y pastos de altura. Sin tráfico ni gente a esa hora. Lleva cortavientos: a 1 300 m amanece fresco incluso en julio.</p>
+      </div>
+      <div class="run"><h3>Subida al Col du Soulor</h3><p class="sp">Desde Arrens-Marsous · ~8 km al 8 % · Asfalto</p>
+        <p>Si prefieres carretera y quieres una sesión con desnivel constante. A primera hora está vacío y la luz sobre el valle merece madrugar. Chaleco reflectante: hay tramos con poca visibilidad.</p>
+      </div>
+      <div class="run"><h3>Val de Jéret, Cauterets</h3><p class="sp">A 30 min · Sendero de las cascadas · Desnivel suave</p>
+        <p>El día que bajéis a Cauterets, corre el sendero de las cascadas antes de las 9h y vuelve a por la familia. Cauterets fue en el XIX una villa termal de moda en Europa — pasaron por aquí Napoleón III, Victor Hugo y Sarah Bernhardt. El pueblo conserva esa arquitectura Belle Époque.</p>
+      </div>
+    </section>
+
+    <!-- NOTAS -->
+    <section class="view" id="view-notas">
+      <h2 class="page-title">Antes de salir cada día</h2>
+      <div class="notes-box">
+        <ul>
+          <li><b>Patous.</b> El Soulor y los pastos de altura son zona de rebaños libres con perros de protección. Si uno se acerca mientras corres o vas en bici, párate, baja de la bici y deja que te identifique antes de seguir. Nunca corras ni le des la espalda.</li>
+          <li><b>Aparcamientos.</b> Pont d'Espagne y Gavarnie son de pago (unos 7–8 €) y se llenan en agosto. Salir antes de las 9h resuelve el problema. Lleva monedas.</li>
+          <li><b>El teleférico del Pic du Midi cierra los jueves.</b> Por eso está colocado el viernes en el plan.</li>
+          <li><b>Reserva restaurantes por la mañana.</b> Muchos cierran uno o dos días por semana y los mejores se llenan en temporada alta.</li>
+          <li><b>Reservas de actividades.</b> Rapaces au Soulor, rafting y vía ferrata exigen reserva previa, a veces con días de antelación. Llama nada más llegar.</li>
+          <li><b>Precios y horarios.</b> Vienen de fuentes de 2026 y de reseñas recientes, pero son orientativos. Confirma en la web oficial o en taquilla antes de contar con ellos.</li>
+          <li><b>Punto de información.</b> La Maison du Val d'Azun y del Parque Nacional, en Arrens-Marsous, es la mejor primera parada.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>Guía preparada el 25 de julio de 2026 para la estancia del 26 de julio al 2 de agosto · Base: Aucun, Val d'Azun, Hautes-Pyrénées.</footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var views = document.querySelectorAll('.view');
+  var topItems = document.querySelectorAll('.sidenav > .sidenav-item');
+  var subItems = document.querySelectorAll('.sidenav-subitem');
+  var clickers = document.querySelectorAll('[data-view]');
+  var content = document.getElementById('content');
+
+  function makeGroup(prefix, memberIds){
+    var toggle = document.getElementById(prefix+'-toggle');
+    var sub = document.getElementById(prefix+'-sub');
+    var group = document.getElementById(prefix+'-group');
+    function openSub(open){
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      sub.classList.toggle('open', open);
+      group.classList.toggle('open', open);
+    }
+    toggle.addEventListener('click', function(){ openSub(!sub.classList.contains('open')); });
+    return { toggle: toggle, openSub: openSub, memberIds: memberIds };
+  }
+
+  var siteIds = ['place-camping','place-pont-despagne','place-lac-gaube','place-gavarnie',
+    'place-betharram','place-parc-animalier','place-lourdes','place-pic-du-midi','place-soulor',
+    'place-couraduque','place-estaing','place-mercado-argeles','place-suyen','place-loisirs-arrens'];
+  var dayIds = ['d26','d27','d28','d29','d30','d31','d01','d02'];
+
+  var groups = [
+    makeGroup('dias', dayIds),
+    makeGroup('sitios', siteIds)
+  ];
+
+  function show(id, anchorId){
+    if(!document.getElementById('view-'+id)) id = 'general';
+    views.forEach(function(v){ v.classList.toggle('active', v.id === 'view-'+id); });
+    topItems.forEach(function(b){ b.classList.toggle('active', b.dataset.view === id); });
+    subItems.forEach(function(b){ b.classList.toggle('active', b.dataset.view === id); });
+    groups.forEach(function(g){ if(g.memberIds.indexOf(id) !== -1){ g.openSub(true); } });
+    content.scrollTop = 0;
+    if(history.replaceState){ history.replaceState(null,'','#'+id); }
+    if(anchorId){
+      requestAnimationFrame(function(){
+        var target = document.getElementById(anchorId);
+        if(target){ target.scrollIntoView({block:'start'}); }
+      });
+    }
+  }
+
+  var groupToggles = groups.map(function(g){ return g.toggle; });
+
+  clickers.forEach(function(el){
+    if(groupToggles.indexOf(el) !== -1) return;
+    el.addEventListener('click', function(){ show(this.dataset.view, this.dataset.anchor); });
+  });
+
+  document.querySelectorAll('[data-top]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      content.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  var start = (location.hash || '#general').slice(1);
+  show(start);
+})();
+</script>
+</body>
+</html>
