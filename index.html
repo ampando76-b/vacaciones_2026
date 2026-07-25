@@ -1,11 +1,20 @@
 <!--
-versión: 06
+versión: 07
 fecha: 2026-07-25
 autor: Noel
-archivo: guia_val_dazun_sidebar_v06.html — versión nueva, archivo nuevo (no se
-sobreescribe v05). Las versiones v1-v3 anteriores no se guardaron como archivos
+archivo: guia_val_dazun_sidebar_v07.html — versión nueva, archivo nuevo (no se
+sobreescribe v06). Las versiones v1-v3 anteriores no se guardaron como archivos
 separados (solo como commits de git sobre guia_val_dazun_sidebar.html, que queda tal
 cual, sin corregir retroactivamente) — petición explícita de Antonio.
+cambios v07 (FIX móvil): el menú lateral no se veía / no funcionaba en móvil.
+Causa raíz: el modo móvil "aplanaba" cada grupo desplegable (Días, Sitios) con
+`display:contents` anidado dos veces (el grupo y su submenú), un patrón con fallos
+conocidos en motores WebKit/Safari — en algunos casos deja el contenido sin
+renderizar o sin recibir toques. Sustituido por un menú de hamburguesa (☰) estándar:
+en móvil el listado completo del menú lateral se oculta tras un botón que lo despliega
+verticalmente (mismos desplegables de Días/Sitios dentro, con acordeón normal, sin
+display:contents en ningún sitio); se cierra solo al elegir una página. Sin cambios en
+escritorio.
 cambios v06: fotos añadidas a 3 de las 4 fichas que no tenían (Lac d'Estaing, Lac de
 Suyen, Base de Loisirs Arrens-Marsous), buscadas y verificadas en Wikimedia Commons
 (licencia CC BY-SA, no inventadas — ver detalle y autoría en contexto_val_dazun.md).
@@ -280,24 +289,35 @@ a:focus-visible{outline:3px solid var(--gave);outline-offset:3px}
 
 footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute)}
 
+/* ---------- menú móvil (hamburguesa) ---------- */
+.menu-toggle{display:none}
+
 /* ---------- responsive ---------- */
 @media (max-width:860px){
   .shell{flex-direction:column}
   .sidebar{
-    position:sticky;top:0;width:100%;height:auto;
+    position:sticky;top:0;width:100%;height:auto;max-height:100vh;
     border-right:none;border-bottom:5px solid var(--balise);
-    z-index:5;
+    z-index:20;overflow-y:visible;display:flex;flex-direction:column;
   }
-  .sidebar-head{display:none}
-  .sidenav{flex-direction:row;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 12px}
-  .sidenav-item{flex:0 0 auto;border-left:none;border-bottom:3px solid transparent;white-space:nowrap;padding:9px 13px}
-  .sidenav-item.active{border-left-color:transparent;border-bottom-color:var(--balise)}
-  /* aplana el grupo "Días": el toggle desaparece, los subitems se vuelven pills horizontales normales */
-  .sidenav-group{display:contents}
-  .sidenav-parent{display:none}
-  .sidenav-sub{display:contents;max-height:none;overflow:visible}
-  .sidenav-subitem{flex:0 0 auto;border-left:none;border-bottom:3px solid transparent;white-space:nowrap;padding:9px 13px;font-size:11.5px}
-  .sidenav-subitem.active{border-left-color:transparent;border-bottom-color:var(--balise)}
+  .sidebar-head{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:14px 18px;border-bottom:none;
+  }
+  .sidebar-head .eyebrow,.sidebar-head .brand-dates{display:none}
+  .sidebar-head .brand{font-size:21px;line-height:1;white-space:nowrap}
+  .menu-toggle{
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+    width:40px;height:40px;background:none;border:1px solid #46585F;border-radius:4px;
+    color:var(--pierre-2);font-size:19px;cursor:pointer;
+  }
+  .menu-toggle:hover,.menu-toggle:focus-visible{border-color:var(--balise);color:var(--balise)}
+  .sidenav{
+    display:none;flex-direction:column;
+    max-height:calc(100vh - 68px);overflow-y:auto;
+    border-top:1px solid #46585F;padding:6px 0;
+  }
+  .sidebar.menu-open .sidenav{display:flex}
   .content{padding:26px 18px 70px;height:auto;overflow-y:visible}
 }
 @media (max-width:560px){
@@ -325,6 +345,7 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
       <p class="eyebrow">Hautes-Pyrénées · Parc National</p>
       <h1 class="brand">VAL<br>D'AZUN</h1>
       <p class="brand-dates">Domingo <b>26 jul</b> — domingo <b>2 ago</b> 2026<br>Camping Cap Pyrénées, Aucun</p>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
     </div>
     <nav class="sidenav">
       <button class="sidenav-item" data-view="general">General</button>
@@ -948,6 +969,20 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
   var subItems = document.querySelectorAll('.sidenav-subitem');
   var clickers = document.querySelectorAll('[data-view]');
   var content = document.getElementById('content');
+  var sidebarEl = document.getElementById('sidebar');
+  var menuToggle = document.getElementById('menu-toggle');
+
+  function closeMobileMenu(){
+    sidebarEl.classList.remove('menu-open');
+    if(menuToggle){ menuToggle.setAttribute('aria-expanded', 'false'); }
+  }
+
+  if(menuToggle){
+    menuToggle.addEventListener('click', function(){
+      var open = sidebarEl.classList.toggle('menu-open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 
   function makeGroup(prefix, memberIds){
     var toggle = document.getElementById(prefix+'-toggle');
@@ -993,7 +1028,10 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
 
   clickers.forEach(function(el){
     if(groupToggles.indexOf(el) !== -1) return;
-    el.addEventListener('click', function(){ show(this.dataset.view, this.dataset.anchor); });
+    el.addEventListener('click', function(){
+      show(this.dataset.view, this.dataset.anchor);
+      closeMobileMenu();
+    });
   });
 
   document.querySelectorAll('[data-top]').forEach(function(btn){
