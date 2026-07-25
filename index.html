@@ -1,11 +1,30 @@
 <!--
-versión: 09
+versión: 10
 fecha: 2026-07-25
 autor: Noel
-archivo: guia_val_dazun_sidebar_v09.html — versión nueva, archivo nuevo (no se
-sobreescribe v08). Las versiones v1-v3 anteriores no se guardaron como archivos
+archivo: guia_val_dazun_sidebar_v10.html — versión nueva, archivo nuevo (no se
+sobreescribe v09). Las versiones v1-v3 anteriores no se guardaron como archivos
 separados (solo como commits de git sobre guia_val_dazun_sidebar.html, que queda tal
 cual, sin corregir retroactivamente) — petición explícita de Antonio.
+cambios v10 (petición explícita de Antonio, con investigación de Vera y verificación
+web real, sin inventar nada):
+1) Reserva/precio: en las 14 fichas de Sitios que ya existían, nueva fila "Reserva" o
+"Web" cuando el sitio tiene página oficial y/o venta anticipada de entradas (zoo,
+grutas, teleférico, remontes, espectáculo de rapaces), con la horquilla de precio
+verificada para la temporada 2026. De paso, corregidos a precio oficial 2026 el Parc
+Animalier (22→20 € adulto, familia 82→76 €) y las Grottes de Bétharram (11→12 € niño,
+familia 62→63 €), y propagado el cambio a badges, día 28/29, sitelist y presupuesto.
+2) Mejor día: nueva fila "Mejor día" en las 14 fichas, con enlace directo al día del
+plan (o recomendación si no tenía día fijo, caso de Lac de Suyen) y una frase que
+explica el motivo — tiempo (evitar sol/calor si hay alternativa y no es un sitio
+imprescindible), afluencia, o encaje logístico con el resto del día.
+3) Nueva página "Más sitios cerca" (secundarios, no incluidos en el plan fijo):
+Donjon des Aigles, Col d'Aubisque, Cauterets centro/termas, pueblos de Arrens-Marsous
+y Aucun, Lau-Folie's — cada uno con web/precio si aplica y su propia recomendación de
+mejor día.
+4) Nueva página "Compras": productos típicos (queso del Val d'Azun, gâteau à la
+broche, miel, cerdo negro de Bigorre, berlingots de Cauterets) y mercados de la zona,
+con mejor día para comprarlos.
 cambios v09: la foto de la cabecera móvil (hotlink de Wikimedia Commons, panorámica de
 Soulor) no se veía bien — sustituida a petición de Antonio por una foto suya propia de
 Aucun (`Aucun_(Hautes-Pyrénées)_1.jpg`, en su carpeta Descargas). Optimizada para web
@@ -404,6 +423,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
         </div>
       </div>
 
+      <button class="sidenav-item" data-view="secundarios">Más sitios cerca</button>
+      <button class="sidenav-item" data-view="compras">Compras</button>
       <button class="sidenav-item" data-view="dinero">Presupuesto</button>
       <button class="sidenav-item" data-view="correr">Correr</button>
       <button class="sidenav-item" data-view="notas">Antes de salir</button>
@@ -429,6 +450,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
       <div class="shortcuts">
         <button class="shortcut" data-view="clima"><span class="st">Clima</span><span class="sd">Previsión de los 8 días, consultada el 25/07</span></button>
         <button class="shortcut" data-view="mochila"><span class="st">Mochila</span><span class="sd">Qué llevar, por categoría</span></button>
+        <button class="shortcut" data-view="secundarios"><span class="st">Más sitios cerca</span><span class="sd">Opcionales, no incluidos en el plan fijo</span></button>
+        <button class="shortcut" data-view="compras"><span class="st">Compras</span><span class="sd">Productos típicos y dónde comprarlos</span></button>
         <button class="shortcut" data-view="dinero"><span class="st">Presupuesto</span><span class="sd">Desglose de la semana</span></button>
         <button class="shortcut" data-view="notas"><span class="st">Antes de salir</span><span class="sd">Avisos prácticos del día a día</span></button>
       </div>
@@ -453,8 +476,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
         <button class="sitelist-row" data-view="place-pont-despagne"><span class="sl-name">Pont d'Espagne</span><span class="sl-stat">1 500 m · ~8 €</span></button>
         <button class="sitelist-row" data-view="place-lac-gaube"><span class="sl-name">Lac de Gaube</span><span class="sl-stat">1 725 m</span></button>
         <button class="sitelist-row" data-view="place-gavarnie"><span class="sl-name">Cirque de Gavarnie</span><span class="sl-stat">UNESCO · ~8 €</span></button>
-        <button class="sitelist-row" data-view="place-betharram"><span class="sl-name">Grottes de Bétharram</span><span class="sl-stat">14 °C · ~62 € familia</span></button>
-        <button class="sitelist-row" data-view="place-parc-animalier"><span class="sl-name">Parc Animalier des Pyrénées</span><span class="sl-stat">~82 € familia</span></button>
+        <button class="sitelist-row" data-view="place-betharram"><span class="sl-name">Grottes de Bétharram</span><span class="sl-stat">14 °C · ~63 € familia</span></button>
+        <button class="sitelist-row" data-view="place-parc-animalier"><span class="sl-name">Parc Animalier des Pyrénées</span><span class="sl-stat">~76 € familia</span></button>
         <button class="sitelist-row" data-view="place-lourdes"><span class="sl-name">Sanctuaires de Lourdes</span><span class="sl-stat">Entrada libre</span></button>
         <button class="sitelist-row" data-view="place-pic-du-midi"><span class="sl-name">Pic du Midi de Bigorre</span><span class="sl-stat">2 877 m · ~166 € familia</span></button>
         <button class="sitelist-row" data-view="place-soulor"><span class="sl-name">Col du Soulor</span><span class="sl-stat">1 474 m</span></button>
@@ -513,13 +536,13 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
       <h2 class="page-title">Martes 28 — Mercado + Parc Animalier</h2>
       <p class="lede">27° · 0% lluvia</p>
       <p>Mercado por la mañana (8h–13h, el único martes de vuestra estancia) y el Parc Animalier por la tarde. Comprad la comida en el mercado y comed de picnic entre las dos cosas.</p>
-      <span class="tag">15 min en coche</span><span class="tag">~82 € parque</span>
+      <span class="tag">15 min en coche</span><span class="tag">~76 € parque</span>
       <div class="site-card">
         <div><span class="sc-name">Mercado de Argelès-Gazost</span><span class="sc-meta">Solo martes · 8:00–13:00</span></div>
         <div class="sc-links"><button class="sc-more" data-view="place-mercado-argeles">Ver ficha →</button><a class="blade sm" href="https://www.google.com/maps/search/?api=1&query=March%C3%A9%20Argel%C3%A8s-Gazost%20Place%20de%20la%20R%C3%A9publique">GPS</a></div>
       </div>
       <div class="site-card">
-        <div><span class="sc-name">Parc Animalier des Pyrénées</span><span class="sc-meta">~500 animales · ~82 € familia</span></div>
+        <div><span class="sc-name">Parc Animalier des Pyrénées</span><span class="sc-meta">~500 animales · ~76 € familia</span></div>
         <div class="sc-links"><button class="sc-more" data-view="place-parc-animalier">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=17589839508665152963">GPS</a></div>
       </div>
     </section>
@@ -528,13 +551,13 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
       <h2 class="page-title">Miércoles 29 — Lourdes + Grutas de Bétharram</h2>
       <p class="lede">30° · 0% lluvia</p>
       <p>El día más caluroso. Las cuevas están a 14 °C constantes — es el mejor sitio donde estar. Lourdes por la mañana, cuevas después de comer, piscina al volver.</p>
-      <span class="tag warn">Día de calor</span><span class="tag">40 min</span><span class="tag">~62 €</span>
+      <span class="tag warn">Día de calor</span><span class="tag">40 min</span><span class="tag">~63 €</span>
       <div class="site-card">
         <div><span class="sc-name">Sanctuaires de Lourdes</span><span class="sc-meta">Visita cultural · entrada libre</span></div>
         <div class="sc-links"><button class="sc-more" data-view="place-lourdes">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=11820121489617167813">GPS</a></div>
       </div>
       <div class="site-card">
-        <div><span class="sc-name">Grottes de Bétharram</span><span class="sc-meta">14 °C constantes · ~62 € familia</span></div>
+        <div><span class="sc-name">Grottes de Bétharram</span><span class="sc-meta">14 °C constantes · ~63 € familia</span></div>
         <div class="sc-links"><button class="sc-more" data-view="place-betharram">Ver ficha →</button><a class="blade sm" href="https://maps.google.com/?cid=16268882230524202605">GPS</a></div>
       </div>
     </section>
@@ -653,6 +676,7 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <div class="info">
             <div class="row"><span class="k">Compra</span><span class="v">Carrefour Market de Argelès-Gazost, a 15 min. Abre 8:30–20:00 (dom. hasta 19:00). Es el sitio grande más cercano: sube reabastecido, en el valle alto apenas hay tiendas.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Carrefour%20Market%20Argeles%20Gazost&query_place_id=ChIJLVmU6hnaVw0RCnCUgtqFH8E">GPS</a></span></div>
             <div class="row"><span class="k">Cenar</span><span class="v">Con niños cansados, lo práctico es cocinar en el alojamiento casi todas las noches y reservar 2 o 3 comidas fuera para los días de excursión.</span></div>
+            <div class="row"><span class="k">Web</span><span class="v">Web del camping para gestionar la reserva: <a href="https://www.cappyrenees.com/" target="_blank" rel="noopener">cappyrenees.com</a>.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=312015898544244092">Abrir en GPS</a>
         </div>
@@ -672,7 +696,9 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <div class="info">
             <div class="row"><span class="k">Aparcar</span><span class="v">Parking del Pont d'Espagne, 7 km sobre Cauterets, unos 7–8 € el día. En agosto se llena antes de las 10h: llega a las 8:30 o usa la lanzadera desde el pueblo (15 min).<a class="pin" href="https://maps.google.com/?cid=16177563497777825946">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Lleva picnic. Arriba solo está la Hostellerie du Pont d'Espagne<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Hostellerie%20du%20Pont%20d%27Espagne&query_place_id=ChIJp0XFfe_nVw0RU6DWuZUDWtw">GPS</a> y las reseñas de su servicio son flojas. Mejor opción de vuelta: <b>l'Abri du Benques</b> (4,6★), en La Raillère, junto a la cascada del Lutour, abierto 10–19h todos los días.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=l%27Abri%20du%20Benques%20Cauterets&query_place_id=ChIJVf1SLIPdVw0REJ9hIfSFMlQ">Reseñas</a> Si bajáis hasta Cauterets centro: <b>À la Bonne Franquette</b> (4,9★, solo cena mar–mié, reserva imprescindible)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=A%20la%20Bonne%20Franquette%20Cauterets&query_place_id=ChIJKaS1mgndVw0RhHj30JuhziA">Reseñas</a> o <b>Maison Alix</b> (4,7★, abierto todos los días)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Maison%20Alix%20Cauterets&query_place_id=ChIJ92BPRfbdVw0Rsv4oY9CD6JE">Reseñas</a></span></div>
-            <div class="row"><span class="k">Presupuesto</span><span class="v">Parking ~8 € + pase telecabina y telesilla si subís al lago sin caminar (~12,50–15 € por persona, con tarifa familiar). Sin remontes, solo el parking.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Parking ~8 €. Si subís al lago sin caminar: telesilla a Gaube 6,40 €/3,70 € niño (ida y vuelta) o telecabina al Puntas 5,20 €/3,20 € niño, precios oficiales 2026.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Venta de remontes en la web oficial N'PY: <a href="https://www.n-py.com/fr/cauterets/reservation-billetterie/pieton" target="_blank" rel="noopener">n-py.com</a>. Temporada de verano: 14 mayo–27 septiembre 2026.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d27">Lunes 27 →</button> ya en el plan: el día más fresco de la semana (20°) y con menos probabilidad de lluvia (5%) — ideal para la caminata larga.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">No se admiten perros. Camino ancho, pero con piedra suelta en tramos.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=16177563497777825946">Abrir en GPS</a>
@@ -694,6 +720,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Comer</span><span class="v">Picnic en la orilla, sin discusión: es el mejor comedor del viaje. Hay refugio-restaurante junto al lago para un café.</span></div>
             <div class="row"><span class="k">Llevar</span><span class="v">Calzado con suela agarrada — la bajada tiene piedras resbaladizas y es donde la gente se tuerce el tobillo.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Al llegar al lago, toma el camino de la derecha. Por la izquierda no hay sendero practicable y hay que volverse.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Si usáis el telesilla en vez de subir andando, es el mismo remonte del Pont d'Espagne — venta en <a href="https://www.n-py.com/fr/cauterets/reservation-billetterie/pieton" target="_blank" rel="noopener">n-py.com</a> (6,40 €/3,70 € niño, ida y vuelta).</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d27">Lunes 27 →</button> ya en el plan, combinado con el Pont d'Espagne en la misma salida (20°, día fresco y sin lluvia).</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=10464996275090427990">Abrir en GPS</a>
         </div>
@@ -713,7 +741,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <div class="info">
             <div class="row"><span class="k">Aparcar</span><span class="v">Obligatorio en las zonas habilitadas a la entrada del pueblo, ~8 € por 24 h. No intentes llegar en coche hasta la Hôtellerie: la carretera está cerrada gran parte del día.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Gavarnie%20village">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Picnic en el mirador y comida tardía en el pueblo al bajar. <b>La Kantine</b> (4,8★) es la mejor valorada (cierra los miércoles)<a class="pin" href="https://www.google.com/maps/search/?api=1&query=La%20Kantine%20Gavarnie&query_place_id=ChIJEzT0dRPjVw0RRwLZJul2uuU">Reseñas</a>; <b>Claire Montagne</b> tiene terraza con vistas y cordero local.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Claire%20Montagne%20Gavarnie&query_place_id=ChIJczFcqpDiVw0RR--jOC4xHJU">GPS</a></span></div>
-            <div class="row"><span class="k">Presupuesto</span><span class="v">Solo el parking. El sendero es gratuito. Opcional: subir a caballo o en burro desde el pueblo.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">Solo el parking. El sendero es gratuito. Opcional: subir a caballo o en burro desde el pueblo, desde 30 € por persona (2h ida y vuelta) — <a href="https://www.valleesdegavarnie.com/sit/association-des-loueurs-de-montures/" target="_blank" rel="noopener">Association des Loueurs de Montures</a>, reserva solo para grupos.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d30">Jueves 30 →</button> ya en el plan: salid antes de las 8h para evitar calor (29°), tráfico y aparcamiento lleno — es la excursión con más afluencia de la semana.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Con niños, quedarse en la Hôtellerie ya compensa el viaje. Seguir hasta la base de la cascada suma 45 min y bastante piedra.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=8518816159801831273">Abrir en GPS</a>
@@ -727,14 +756,15 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
         <div class="body">
           <button class="place-top" data-top>↑ Arriba</button>
           <h3>Grottes de Bétharram</h3>
-          <div class="stats"><span class="key">14 °C constantes</span><span>40 min · ~30 km</span><span>Visita guiada 1h20</span><span class="eur">~62 € familia</span></div>
+          <div class="stats"><span class="key">14 °C constantes</span><span>40 min · ~30 km</span><span>Visita guiada 1h20</span><span class="eur">~63 € familia</span></div>
           <p>La visita subterránea más divertida de la zona y perfecta para los niños: bus de acceso, recorrido a pie entre estalactitas por cinco niveles, tramo en barca por un río subterráneo y vuelta en trencito. Audioguías en varios idiomas.</p>
           <a class="wiki-link" href="https://en.wikipedia.org/wiki/Grottes_de_B%C3%A9tharram" target="_blank" rel="noopener">Wikipedia →</a>
           <div class="story"><span class="eyebrow2">Por qué se visita</span><p>Descubiertas en 1810, exploradas a fondo en el XIX y abiertas al público en 1903 por León Ross, que las electrificó a mano. Fueron de las primeras grutas de Francia abiertas de forma turística, y la fórmula a pie + barca + tren sigue siendo la misma idea de hace más de un siglo. Lo recomiendo porque es de las pocas visitas de la zona que no depende del tiempo que haga fuera.</p></div>
           <div class="info">
             <div class="row"><span class="k">Aparcar</span><span class="v">Parking gratuito en Saint-Pé-de-Bigorre, salida de la cueva. Desde ahí una lanzadera gratuita os lleva a la entrada.<a class="pin" href="https://maps.google.com/?cid=16268882230524202605">GPS</a></span></div>
-            <div class="row"><span class="k">Reservar</span><span class="v">Muy recomendable reservar online. Presentarse 15 minutos antes de la hora de la visita.</span></div>
-            <div class="row"><span class="k">Presupuesto</span><span class="v">Alrededor de 17 € adulto y 11 € niño (4–12 años). Vuestro hijo de 13 paga tarifa adulta. Confirma en betharram.com.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Muy recomendable reservar online en la web oficial: <a href="https://www.betharram.com/page/tarifs-horaires" target="_blank" rel="noopener">betharram.com</a>. Presentarse 15 minutos antes de la hora de la visita.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">17 € adulto y 12 € niño (4–12 años), tarifas oficiales. Vuestro hijo de 13 paga tarifa adulta: 3 × 17 + 1 × 12 = <b>63 €</b>.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d29">Miércoles 29 →</button> ya en el plan: es el día más caluroso de la semana (30°) y aquí dentro hace 14 °C constantes — el mejor sitio del valle para escapar del calor a mediodía.</span></div>
             <div class="row"><span class="k">Llevar</span><span class="v">Chaqueta fina: dentro hay 14 °C todo el año. Calzado cómodo — hay muchas escaleras.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=16268882230524202605">Abrir en GPS</a>
@@ -748,14 +778,16 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
         <div class="body">
           <button class="place-top" data-top>↑ Arriba</button>
           <h3>Parc Animalier des Pyrénées</h3>
-          <div class="stats"><span class="key">~500 animales</span><span>15 min · ~8 km</span><span>Jul–ago 9:30–19:00</span><span class="eur">~82 € familia</span></div>
+          <div class="stats"><span class="key">~500 animales</span><span>15 min · ~8 km</span><span>Jul–ago 9:30–19:00</span><span class="eur">~76 € familia</span></div>
           <p>Osos pardos, lobos, lince, marmotas, nutrias, quebrantahuesos, panda rojo, gibones y lémures, en 14 hectáreas de ladera con recintos inmersivos. Hay dos recorridos, uno corto y otro largo por la parte alta.</p>
           <a class="wiki-link" href="https://fr.wikipedia.org/wiki/Parc_animalier_des_Pyr%C3%A9n%C3%A9es" target="_blank" rel="noopener">Wikipedia →</a>
           <div class="story"><span class="eyebrow2">Por qué se visita</span><p>El oso pardo desapareció casi por completo del Pirineo francés en el siglo XX; desde los años 90 se reintrodujeron ejemplares de Eslovenia, algo que sigue generando debate entre conservacionistas y ganaderos (de ahí los perros patou que veréis en los pastos). Lo recomiendo porque es la manera más fácil de ver de cerca la fauna que da nombre a todo lo demás que vais a visitar esta semana.</p></div>
           <div class="info">
             <div class="row"><span class="k">Aparcar</span><span class="v">Parking propio del parque en Ayzac-Ost, a la entrada. Sin problema de plazas.<a class="pin" href="https://maps.google.com/?cid=17589839508665152963">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Cafetería a mitad de recorrido. Con el mercado de la mañana en el cuerpo, mejor picnic antes de entrar.</span></div>
-            <div class="row"><span class="k">Presupuesto</span><span class="v">22 € adulto (desde 12 años) y 16 € niño (3–11) en 2026. Vuestro hijo de 13 paga adulto: 3 × 22 + 1 × 16 = <b>82 €</b>. Comprar online suele salir algo más barato.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">20 € adulto (desde 12 años) y 16 € niño (3–11), precio oficial 2026. Vuestro hijo de 13 paga adulto: 3 × 20 + 1 × 16 = <b>76 €</b>.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Entrada online en la web oficial (evita colas en taquilla): <a href="https://www.parc-animalier-pyrenees.com/page/acheter-un-billet" target="_blank" rel="noopener">parc-animalier-pyrenees.com</a>.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d28">Martes 28 →</button> ya en el plan: por la tarde, después del mercado. 27° y sin lluvia — buen día para el recorrido en cuesta, sin el barro de un día de lluvia.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Está en cuesta, con tramos empinados. La taquilla cierra a las 17:30 en julio y agosto — no llegues tarde.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=17589839508665152963">Abrir en GPS</a>
@@ -777,6 +809,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Aparcar</span><span class="v">Los parkings del centro son de pago y en agosto están saturados. Aparca en la periferia y entra andando.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Lourdes%20centre">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Muchísima oferta turística alrededor, de calidad desigual. Si enlazas con Bétharram, come ligero aquí y cena bien en Argelès al volver.</span></div>
             <div class="row"><span class="k">Llevar</span><span class="v">Hombros y rodillas cubiertos para entrar en las basílicas.</span></div>
+            <div class="row"><span class="k">Web</span><span class="v">Web oficial de los santuarios: <a href="https://www.lourdes-france.org" target="_blank" rel="noopener">lourdes-france.org</a>. Entrada libre, sin reserva.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d29">Miércoles 29 →</button> ya en el plan: por la mañana, antes del calor del mediodía (30°) y de las Grutas de Bétharram por la tarde.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=11820121489617167813">Abrir en GPS</a>
         </div>
@@ -797,6 +831,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Aparcar</span><span class="v">Parking en la estación de La Mongie, junto a la salida del teleférico.<a class="pin" href="https://maps.google.com/?cid=17920341294546427157">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Hay restaurante en la cima, caro. Alternativa: subir después de comer, aunque se pierde el mejor momento de visibilidad.</span></div>
             <div class="row"><span class="k">Presupuesto</span><span class="v">Desde 44 € adulto y 34 € niño reservando online en 2026. Para vuestra familia, alrededor de <b>166 €</b>.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Venta oficial en <a href="https://picdumidi.com/fr/pic-du-midi/le-telepherique" target="_blank" rel="noopener">picdumidi.com</a> o directamente en <a href="https://www.n-py.com/fr/pic-du-midi/reservation-billetterie" target="_blank" rel="noopener">n-py.com</a>. Reservando con 3 días de antelación se accede a la mejor tarifa; los billetes no se cambian ni se devuelven.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d31">Viernes 31 →</button> ya en el plan: el día más fresco de la semana (24°) y sin el cierre de los jueves. Solo si el cielo está despejado — si amanece nublado, cambia al Soulor el mismo día.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Los billetes no se cambian ni se devuelven. Sube solo con cielo despejado y ve por la mañana. <b>Cierra los jueves.</b></span></div>
             <div class="row"><span class="k">Llevar</span><span class="v">Chaqueta de verdad. En agosto puede haber 5 °C y viento en la pasarela.</span></div>
           </div>
@@ -819,6 +855,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Aparcar</span><span class="v">Aparcamiento libre en el propio collado.<a class="pin" href="https://maps.google.com/?cid=14681206188793780458">GPS</a></span></div>
             <div class="row"><span class="k">Actividad</span><span class="v">«Rapaces au Soulor» hasta el 28 de agosto: identificación de aves rapaces con guía, desde 6–7 años, con bajada en tirolina incluida. Reserva obligatoria.</span></div>
             <div class="row"><span class="k">Presupuesto</span><span class="v">Unos 20 € adulto, 15 € menor de 16 y <b>60 € la tarifa familiar</b>. El collado en sí es gratis.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Organiza el Bureau Montagne du Val d'Azun: <a href="https://bmva.net/programme-ete/" target="_blank" rel="noopener">bmva.net</a>. Punto de encuentro en la taquilla de la Station Val d'Azun, en el propio Soulor.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d31">Viernes 31 →</button> ya en el plan como alternativa si el Pic du Midi amanece nublado. Válido cualquier día despejado hasta el 28 de agosto (fin de temporada del espectáculo).</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Zona pastoral con perros patou sueltos — ver la página de Notas.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=14681206188793780458">Abrir en GPS</a>
@@ -838,6 +876,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <div class="info">
             <div class="row"><span class="k">Comer</span><span class="v"><b>Le Couraduque</b> (4,8★), en el propio collado: crepes, quiches y producto local con vistas al valle, abierto 10:30–18:00 todos los días.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Le%20Couraduque%20Aucun&query_place_id=ChIJaWmuC97FVw0RHpNn8xyv8L8">Reseñas</a></span></div>
             <div class="row"><span class="k">Presupuesto</span><span class="v">Senderos gratuitos. Actividades de verano entre 5 y 15 € por actividad.</span></div>
+            <div class="row"><span class="k">Reserva</span><span class="v">Web oficial: <a href="https://www.station-valdazun.com/" target="_blank" rel="noopener">station-valdazun.com</a>. Fines de semana, las actividades (tirolina, patinete eléctrico) solo con reserva previa: 06 70 32 97 80 / contact@station-valdazun.com.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d02">Domingo 2 →</button> ya en el plan: última mañana antes de la salida, carrera corta de despedida. Válido también como comodín cualquier día si sobra tiempo.</span></div>
           </div>
           <a class="blade" href="https://maps.google.com/?cid=9824092052432772995">Abrir en GPS</a>
         </div>
@@ -857,6 +897,7 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Aparcar</span><span class="v">Se llega en coche hasta la orilla. En agosto conviene llegar antes de las 11h.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=42.9068308%2C-0.2074687&query_place_id=ChIJs50YiMnDVw0R9MT8A3hkP8s">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">Restaurante-camping junto al lago, y mesas de picnic. En verano venden miel ecológica de los Pirineos allí mismo.</span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Sin cobertura móvil. Descarga el mapa antes de subir.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d01">Sábado 1 →</button> ya en el plan: día tranquilo cerca de la base, sin necesidad de madrugar.</span></div>
           </div>
           <a class="blade" href="https://www.google.com/maps/search/?api=1&query=42.9068308%2C-0.2074687&query_place_id=ChIJs50YiMnDVw0R9MT8A3hkP8s">Abrir en GPS</a>
         </div>
@@ -877,6 +918,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
             <div class="row"><span class="k">Presupuesto</span><span class="v">Cuenta 30–50 € si compráis embutido, queso y fruta para varios días de picnic.</span></div>
             <div class="row"><span class="k">Comer</span><span class="v"><b>La Table d'Ayzi</b> (4,6★, cierra domingo): carne de su propia ganadería, tartar muy recomendado.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=La%20Table%20d'Ayzi%20Argeles-Gazost&query_place_id=ChIJq0T8Q2naVw0RJAfr73s1Mx8">Reseñas</a> Para una cena especial, <b>Au Fond Du Gosier</b> (4,6★, cierra lunes y domingo, reserva imprescindible): menú cerrado con producto local.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Au%20Fond%20Du%20Gosier%20Argeles-Gazost&query_place_id=ChIJ6S1WsIQhqBIRIMryBkvV1Fg">Reseñas</a></span></div>
             <div class="row"><span class="k">Ojo</span><span class="v">Llega antes de las 9h para las mejores piezas de cerdo negro. Lleva efectivo y bolsa de tela.</span></div>
+            <div class="row"><span class="k">Web</span><span class="v">Info en la web del pueblo: <a href="https://www.argeles-gazost.com/marches-dargeles-gazost-sorties-saveurs-et-artisanat/" target="_blank" rel="noopener">argeles-gazost.com</a>. Entrada libre, sin reserva.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d28">Martes 28 →</button> único martes de la semana, imprescindible por la mañana (8:00–13:00). Si se os escapa, también hay mercado los sábados.</span></div>
           </div>
           <a class="blade" href="https://www.google.com/maps/search/?api=1&query=March%C3%A9%20Argel%C3%A8s-Gazost%20Place%20de%20la%20R%C3%A9publique">Abrir en GPS</a>
         </div>
@@ -895,6 +938,7 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <div class="info">
             <div class="row"><span class="k">Aparcar</span><span class="v">Parking al final de la carretera del valle del Gave d'Arrens, pasado Arrens-Marsous. Pequeño: ve temprano.<a class="pin" href="https://www.google.com/maps/search/?api=1&query=Parking%20Lac%20de%20Suyen%20Arrens-Marsous">GPS</a></span></div>
             <div class="row"><span class="k">Comer</span><span class="v">No hay nada arriba. Picnic obligatorio, y de vuelta parada en Arrens-Marsous.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v">Sin día fijo en el plan — combina bien con el <button class="sc-more" data-view="d01">sábado 1 →</button> (mismo valle que Lac d'Estaing) como caminata corta extra, o como alternativa si ese día el parking de Estaing está lleno.</span></div>
           </div>
           <a class="blade" href="https://www.google.com/maps/search/?api=1&query=Lac%20de%20Suyen%20Arrens-Marsous">Abrir en GPS</a>
         </div>
@@ -911,10 +955,108 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
           <p>Pumptrack, tirolina infantil, rocódromo, slackline, pistas deportivas y zona de picnic, con acceso libre. Al lado hay piscina municipal climatizada con tobogán y zona infantil.</p>
           <a class="wiki-link" href="https://en.wikipedia.org/wiki/Arrens-Marsous" target="_blank" rel="noopener">Wikipedia: Arrens-Marsous →</a>
           <div class="info">
-            <div class="row"><span class="k">Presupuesto</span><span class="v">La base es gratuita. La piscina municipal se paga aparte.</span></div>
+            <div class="row"><span class="k">Presupuesto</span><span class="v">La base es gratuita. La piscina municipal, abierta en julio y agosto (10:00–19:00), se paga aparte — precio a confirmar en taquilla.</span></div>
+            <div class="row"><span class="k">Web</span><span class="v">Info del ayuntamiento: <a href="https://www.arrens-marsous.fr/loisirs-activites-mairie-arrensmarsous-65-hautepyrenees" target="_blank" rel="noopener">arrens-marsous.fr</a>.</span></div>
+            <div class="row"><span class="k">Mejor día</span><span class="v"><button class="sc-more" data-view="d01">Sábado 1 →</button> ya en el plan, combinado con el Lac d'Estaing el mismo día.</span></div>
             <div class="row"><span class="k">Llevar</span><span class="v">Casco propio si lo tenéis para el pumptrack, bañador y toalla.</span></div>
           </div>
           <a class="blade" href="https://www.google.com/maps/search/?api=1&query=Base%20de%20Loisirs%20Arrens-Marsous">Abrir en GPS</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECUNDARIOS -->
+    <section class="view" id="view-secundarios">
+      <h2 class="page-title">Más sitios cerca</h2>
+      <p class="lede">Opcionales, no incluidos en el plan fijo de la semana — por si sobra tiempo, cambia el tiempo o os apetece variar. Verificados igual que el resto de la guía: nada inventado.</p>
+      <div class="kit">
+        <div class="box">
+          <h3>Donjon des Aigles · Beaucens</h3>
+          <ul>
+            <li>Castillo medieval con espectáculo de rapaces y loros en vuelo libre. Sesiones a las 15:30 y 17:00 (en agosto también 16:30).</li>
+            <li>16 € adulto, 10,50 € niño (5–11), gratis menores de 5. Web oficial: <a href="https://www.donjon-des-aigles.com/?lang=en" target="_blank" rel="noopener">donjon-des-aigles.com</a>.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=100%20Rue%20du%20Ch%C3%A2teau%2C%2065400%20Beaucens">GPS</a></li>
+            <li><b>Mejor día:</b> concepto muy parecido a Rapaces au Soulor (ya en el plan) — no recomendamos hacer los dos salvo que sobre presupuesto. Si sustituís algo, encaja mejor cambiando la Grotte de Bétharram del miércoles 29 (misma zona, cerca de Lourdes), ya que las dos son visitas "bajo techo/al aire libre programado" y no dependen tanto del tiempo.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Col d'Aubisque</h3>
+          <ul>
+            <li>Otro puerto mítico del Tour de Francia, 10 min más allá del Soulor por la misma carretera en cornisa. Mirador con las famosas estatuas de ciclistas. Gratis, sin reserva.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=Col%20d%27Aubisque">GPS</a></li>
+            <li><b>Mejor día:</b> el mismo que subáis al Soulor (viernes 31 como alternativa al Pic du Midi) — seguid 10 minutos más en coche, solo si el cielo está despejado, igual que el Pic du Midi.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Cauterets · centro y termas</h3>
+          <ul>
+            <li>Pueblo balneario Belle Époque: antigua estación (monumento histórico), casino, iglesia con vidrieras, y las tiendas de berlingots del centro (ver página Compras).</li>
+            <li>Bains du Rocher (centro termolúdico): 18 € adulto/adolescente, 11 € niño (4–14), pase de 2 h. Web oficial: <a href="https://www.bains-rocher.fr/" target="_blank" rel="noopener">bains-rocher.fr</a>.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=Avenue%20du%20Docteur%20Domer%2C%2065110%20Cauterets">GPS</a></li>
+            <li><b>Mejor día:</b> lunes 27, de camino o de vuelta del Pont d'Espagne — ya pasáis por Cauterets ese día, sin desplazamiento extra.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Pueblos de Arrens-Marsous y Aucun</h3>
+          <ul>
+            <li>Iglesias románicas, lavaderos y graneros tradicionales ("granges foraines"). La Maison du Val d'Azun, en Arrens-Marsous, es el punto de información del Parque Nacional — buena primera parada de la semana.</li>
+            <li>Gratis, paseo sin reserva.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=Maison%20du%20Val%20d%27Azun%20Arrens-Marsous">GPS</a></li>
+            <li><b>Mejor día:</b> sin día fijo — ya se pasa por aquí varias veces (Couraduque, camino a Estaing/Suyen). Bien para un paseo tranquilo el domingo 2 antes de salir.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Lau-Folie's · Lau-Balagnas</h3>
+          <ul>
+            <li>Centro acuático intercomunal: piscina cubierta, exterior, toboganes y zona infantil. Alternativa "de parque" a la piscina del camping o a la Base de Loisirs de Arrens.</li>
+            <li>7 € adulto (14+), 5 € niño (4–13). Web oficial: <a href="https://www.laufolies.com/" target="_blank" rel="noopener">laufolies.com</a>.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=38%20route%20du%20Sailhet%2C%20Lau-Balagnas%2065400%20Argel%C3%A8s-Gazost">GPS</a></li>
+            <li><b>Mejor día:</b> martes 28 o miércoles 29 por la tarde si sobra tiempo — son los dos días más calurosos de la semana (27° y 30°), buen momento para agua.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPRAS -->
+    <section class="view" id="view-compras">
+      <h2 class="page-title">Compras y productos típicos</h2>
+      <p class="lede">Qué llevarse del Val d'Azun y alrededores, y dónde comprarlo — verificado, nada inventado.</p>
+      <div class="kit">
+        <div class="box">
+          <h3>Queso del Val d'Azun</h3>
+          <ul>
+            <li>Fromage de oveja, vaca, cabra o mixto, de tradición pastoral. Venta directa en granjas de la "ruta de las fromagerías" del valle, y en el mercado de Argelès-Gazost.</li>
+            <li><b>Mejor día:</b> martes 28, en el mercado (ya en el plan).</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Gâteau à la broche</h3>
+          <ul>
+            <li>Icono de la repostería de las Hautes-Pyrénées: se hace lentamente al fuego, capa a capa, formando púas por fuera. Se ve haciéndose en directo en el mercado.</li>
+            <li><b>Mejor día:</b> martes 28, mercado de Argelès-Gazost.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Miel de montaña y cerdo negro de Bigorre</h3>
+          <ul>
+            <li>Miel del Val d'Azun, también a la venta junto al Lac d'Estaing en verano. Charcutería de cerdo negro de Bigorre, mejores piezas antes de las 9h en el mercado.</li>
+            <li><b>Mejor día:</b> martes 28 (mercado) para el cerdo negro; sábado 1 (Lac d'Estaing, ya en el plan) para la miel.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Berlingots de Cauterets</h3>
+          <ul>
+            <li>Caramelos artesanales a rayas, especialidad de Cauterets desde el siglo XIX. Se puede ver el proceso de fabricación en las confiterías del centro: <b>Aux Délices</b> y <b>À la Reine Margot</b>, ambas en el centro del pueblo.</li>
+            <li><a class="pin" href="https://www.google.com/maps/search/?api=1&query=A%20la%20Reine%20Margot%20Cauterets">GPS</a></li>
+            <li><b>Mejor día:</b> lunes 27, de camino o de vuelta del Pont d'Espagne.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Mercados de la zona</h3>
+          <ul>
+            <li><b>Argelès-Gazost:</b> martes y sábado por la mañana (el de martes, con más de 700 años de historia, ya está en el plan del día 28).</li>
+            <li><b>Arrens-Marsous:</b> domingo por la mañana y miércoles por la tarde, solo en verano — útil si el mercado de Argelès se os escapa.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -925,8 +1067,8 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-si
       <p class="lede">Cálculo para 2 adultos + 1 chaval de 13 + 1 de 11. Atención: en casi todos estos sitios la tarifa adulta empieza a los 12 años, así que el mayor paga como adulto.</p>
       <div class="budget">
         <div class="brow"><span class="bname">Pic du Midi</span><span class="bdet">3 × 44 € + 1 × 34 €, reservando online</span><span class="bamt">~166 €</span></div>
-        <div class="brow"><span class="bname">Parc Animalier</span><span class="bdet">3 × 22 € + 1 × 16 €</span><span class="bamt">~82 €</span></div>
-        <div class="brow"><span class="bname">Grottes de Bétharram</span><span class="bdet">3 × ~17 € + 1 × ~11 €</span><span class="bamt">~62 €</span></div>
+        <div class="brow"><span class="bname">Parc Animalier</span><span class="bdet">3 × 20 € + 1 × 16 €, precio oficial 2026</span><span class="bamt">~76 €</span></div>
+        <div class="brow"><span class="bname">Grottes de Bétharram</span><span class="bdet">3 × 17 € + 1 × 12 €, precio oficial</span><span class="bamt">~63 €</span></div>
         <div class="brow"><span class="bname">Rapaces au Soulor</span><span class="bdet">Tarifa familiar, tirolina incluida</span><span class="bamt">~60 €</span></div>
         <div class="brow"><span class="bname">Pont d'Espagne</span><span class="bdet">Parking 8 € + remontes opcionales</span><span class="bamt">~8–58 €</span></div>
         <div class="brow"><span class="bname">Cirque de Gavarnie</span><span class="bdet">Solo parking, 24 h</span><span class="bamt">~8 €</span></div>
